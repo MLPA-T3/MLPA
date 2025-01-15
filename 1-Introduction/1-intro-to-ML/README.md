@@ -33,6 +33,9 @@ Machine learning starts with data—the data is gathered and prepared to be used
 ---
 ## Types of Machine Learning Algorithms
 
+![image](https://github.com/user-attachments/assets/a31254ff-2214-4a51-ba97-cefbb4178ad2)
+
+
 There are four subcategories of machine learning:
 
 ### Supervised Machine Learning
