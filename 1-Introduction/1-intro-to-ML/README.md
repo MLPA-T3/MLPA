@@ -1,7 +1,5 @@
 # Introduction to machine learning
 
-
-
 > 🎥 Click the image above for a short video working through this lesson.
 
 Welcome to this course on classical machine learning for beginners! Whether you're completely new to this topic, or an experienced ML practitioner looking to brush up on an area, we're happy to have you join us!
@@ -22,9 +20,79 @@ Before starting with this curriculum, you need to have your computer set up and 
 - **Explore Scikit-learn**. Familiarize yourself with [Scikit-learn](https://scikit-learn.org/stable/user_guide.html), a set of ML libraries that we reference in these lessons.
 
 ---
-## What is machine learning?
+## What is Machine Learning?
 
-The term 'machine learning' is one of the most popular and frequently used terms of today. There is a nontrivial possibility that you have heard this term at least once if you have some sort of familiarity with technology, no matter what domain you work in. The mechanics of machine learning, however, are a mystery to most people. For a machine learning beginner, the subject can sometimes feel overwhelming. Therefore, it is important to understand what machine learning actually is, and to learn about it step by step, through practical examples.
+Machine learning is a subfield of artificial intelligence that gives computers the ability to learn without explicitly being programmed.
+
+It is a branch of artificial intelligence (AI) and computer science that focuses on using data and algorithms to enable AI to imitate the way that humans learn, gradually improving its accuracy. It was defined in the 1950s by AI pioneer Arthur Samuel as “the field of study that gives computers the ability to learn without explicitly being programmed.”
+
+Machine learning is behind chatbots and predictive text, language translation apps, the shows Netflix suggests, and how our social media feeds are presented. It powers autonomous vehicles and machines that can diagnose medical conditions based on images.
+
+Machine learning starts with data—the data is gathered and prepared to be used as training data, or the information the machine learning model will be trained on. The more data, the better the program. From there, programmers choose a machine learning model to use, supply the data, and let the computer model train itself to find patterns or make predictions.
+
+---
+## Types of Machine Learning Algorithms
+
+There are four subcategories of machine learning:
+
+### Supervised Machine Learning
+
+In supervised machine learning, the data is labeled, meaning each example comes with a correct answer, and the machine is trained on this data to generate a model that gives accurate predictions for similar kinds of data.
+
+For example, an algorithm would be trained with pictures of dogs and other things, all labeled by humans, and the machine would learn ways to identify pictures of dogs on its own.
+
+The operator provides the machine learning algorithm with a known dataset that includes desired inputs and outputs, and the algorithm must find a method to determine how to arrive at those inputs and outputs. While the operator knows the correct answers to the problem, the algorithm identifies patterns in data, learns from observations, and makes predictions. The algorithm makes predictions and is corrected by the operator — and this process continues until the algorithm achieves a high level of accuracy/performance.
+
+#### Types of Supervised Learning Problems:
+
+- **Regression**: In regression problems, the goal is to predict a continuous numeric value. This could be predicting house prices based on features like location, size, and number of rooms, forecasting stock prices, or estimating the temperature based on weather variables.
+- **Classification**: In classification problems, the goal is to predict a category or class label for a given input. For example, classifying emails as spam or non-spam, identifying handwritten digits, or predicting whether a customer will churn or not.
+
+#### Applications of Supervised Learning:
+
+- **Healthcare**: Diagnosing diseases based on patient symptoms.
+- **Finance**: Predicting stock prices or credit risk assessment.
+- **Marketing**: Targeted advertising based on customer behavior.
+- **Natural Language Processing (NLP)**: Sentiment analysis, text classification.
+- **Autonomous Vehicles**: Recognizing objects and making driving decisions.
+
+### Unsupervised Machine Learning
+
+Imagine you’re given a basket filled with assorted fruits but without any labels. Your task is to group similar fruits together based on their features like color, shape, or texture. This process of discovering patterns or structures in data without explicit supervision is akin to unsupervised learning in machine learning.
+
+In unsupervised machine learning, a program looks for patterns in unlabeled data. In an unsupervised learning process, the machine learning algorithm is left to interpret large datasets and address that data accordingly. The algorithm tries to organize that data in some way to describe its structure. This might mean grouping the data into clusters or arranging it in a way that looks more organized.
+
+#### Types of Unsupervised Learning Problems:
+
+- **Clustering**: Clustering involves grouping similar data points together into clusters or segments based on their features. Examples include grouping customers based on purchase behavior, segmenting news articles into topics, or identifying similar genes in biological data.
+- **Dimensionality Reduction**: Dimensionality reduction techniques aim to reduce the number of features in a dataset while preserving its essential information. This helps in visualizing high-dimensional data, compressing data for efficient storage, or improving the performance of machine learning models.
+- **Anomaly Detection**: Anomaly detection focuses on identifying rare events or outliers in the data that deviate from the norm. This is particularly useful in fraud detection, network security, or monitoring industrial equipment for faults.
+
+#### Applications of Unsupervised Learning:
+
+- **Market Segmentation**: Grouping customers based on purchasing behavior.
+- **Image and Document Clustering**: Organizing similar images or documents into groups.
+- **Anomaly Detection**: Identifying fraudulent transactions or unusual patterns in data.
+- **Recommendation Systems**: Suggesting similar products or content based on user preferences.
+- **Data Visualization**: Visualizing high-dimensional data in lower dimensions for exploration.
+
+### Reinforcement Machine Learning
+
+Reinforcement machine learning trains machines through trial and error to take the best action by establishing a reward system. Reinforcement learning can train models to play games or train autonomous vehicles to drive by telling the machine when it made the right decisions, which helps it learn over time what actions it should take.
+
+By defining the rules, the machine learning algorithm then tries to explore different options and possibilities, monitoring and evaluating each result to determine which one is optimal.
+
+#### Applications of Reinforcement Learning:
+
+- **Game Playing**: Training agents to play board games (e.g., chess, Go) or video games (e.g., Atari games) at superhuman levels.
+- **Robotics**: Teaching robots to perform complex tasks such as manipulation, navigation, or assembly in dynamic environments.
+- **Autonomous Vehicles**: Developing self-driving cars that learn to navigate roads safely and efficiently.
+- **Recommendation Systems**: Personalizing content recommendations (e.g., movies, music, products) based on user interactions and feedback.
+- **Resource Management**: Optimizing resource allocation in dynamic systems, such as energy management or supply chain optimization.
+
+### Semi-Supervised Machine Learning
+
+Semi-supervised learning is similar to supervised learning, but instead uses both labeled and unlabeled data. In semi-supervised learning, the algorithm learns from a dataset that contains a small amount of labeled data and a much larger amount of unlabeled data. This approach is particularly useful in scenarios where obtaining labeled data is expensive or time-consuming, but unlabeled data is abundant.
 
 ---
 ## The hype curve
@@ -73,22 +141,16 @@ In this curriculum, we are going to cover only the core concepts of machine lear
 - ML and fairness
 - regression ML techniques
 - classification ML techniques
+- neural networks
 - clustering ML techniques
 - natural language processing ML techniques
 - time series forecasting ML techniques
 - reinforcement learning
+- AI
 - real-world applications for ML
 
 ---
-## What we will not cover
 
-- deep learning
-- neural networks
-- AI
-
-To make for a better learning experience, we will avoid the complexities of neural networks, 'deep learning' - many-layered model-building using neural networks - and AI, which we will discuss in a different curriculum. We also will offer a forthcoming data science curriculum to focus on that aspect of this larger field.
-
----
 ## Why study machine learning?
 
 Machine learning, from a systems perspective, is defined as the creation of automated systems that can learn hidden patterns from data to aid in making intelligent decisions.
@@ -121,12 +183,7 @@ Machine learning automates the process of pattern-discovery by finding meaningfu
 
 In the near future, understanding the basics of machine learning is going to be a must for people from any domain due to its widespread adoption.
 
----
-# 🚀 Challenge
 
-Sketch, on paper or using an online app like [Excalidraw](https://excalidraw.com/), your understanding of the differences between AI, ML, deep learning, and data science. Add some ideas of problems that each of these techniques are good at solving.
-
-# [Post-lecture quiz](https://gray-sand-07a10f403.1.azurestaticapps.net/quiz/2/)
 
 ---
 # Review & Self Study
@@ -135,7 +192,4 @@ To learn more about how you can work with ML algorithms in the cloud, follow thi
 
 Take a [Learning Path](https://docs.microsoft.com/learn/modules/introduction-to-machine-learning/?WT.mc_id=academic-77952-leestott) about the basics of ML.
 
----
-# Assignment
 
-[Get up and running](assignment.md)
