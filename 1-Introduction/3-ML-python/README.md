@@ -97,9 +97,10 @@ import warnings
 warnings.filterwarnings("ignore")
 from subprocess import check_output
 print(check_output(["ls", "../input"]).decode("utf8"))
-
+```
 # Any results you write to the current directory are saved as output.
- python
+
+``` python
 # read csv (comma separated value) into data
 data = pd.read_csv('../input/column_2C_weka.csv')
 print(plt.style.available) # look at available plot styles
@@ -107,17 +108,13 @@ plt.style.use('ggplot')
 ```
 :::
 
-::: {.cell .markdown _cell_guid="89a724e2-426d-427b-9107-06835010cf59" _uuid="f4fa42e9a6cf069d54459be42a1726ab03c2f1e5"}
-`<a id="1">`{=html}`</a>`{=html} `<br>`{=html}
+
 
 # 8. MACHINE LEARNING (ML) {#8-machine-learning-ml}
 
 In python there are some ML libraries like sklearn, keras or tensorflow.
 We will use sklearn.
-:::
 
-::: {.cell .markdown _cell_guid="10f3b719-c44b-451a-b464-0adf4e1e1522" _uuid="f6a2b205e1e3fc647bc2ee88d702b8572bf1cc75"}
-`<a id="2">`{=html}`</a>`{=html} `<br>`{=html}
 
 ## A. SUPERVISED LEARNING {#a-supervised-learning}
 
@@ -139,10 +136,7 @@ We will use sklearn.
         variable = independent variable = columns = inputs. target
         variable = responce variable = class = dependent variable =
         output = result
-:::
 
-::: {.cell .markdown _cell_guid="65e897a1-8259-44c5-9cb7-e5e653f9032d" _uuid="a0e671bf2ef8dbe81da2705ad70b69401bb7af16"}
-`<a id="3">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### EXPLORATORY DATA ANALYSIS (EDA)
 
@@ -155,23 +149,17 @@ We will use sklearn.
     target variable that is *class*
 -   head(): default value of it shows first 5 rows(samples). If you want
     to see for example 100 rows just write head(100)
-:::
 
-::: {.cell .code _cell_guid="c1ecd622-67cc-485f-bfa7-8c682d30a5eb" _uuid="9a5993f4962882e1156f2062b7abf706a0739d51" collapsed="true" trusted="false"}
 ``` python
 # to see features and target variable
 data.head()
 ```
-:::
 
-::: {.cell .code _cell_guid="1631690c-bb9d-4460-a7d9-a335aa914b4f" _uuid="b7b9addc824de1a35b67d96d3092ffcb10869947" collapsed="true" trusted="false"}
 ``` python
 # Well know question is is there any NaN value and length of this data so lets look at info
 data.info()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="a7dd2a6f-a81d-4dce-9d74-fd0148c446ae" _uuid="96f97c33305956eb76d8a2043fd71aff05e38548"}
 As you can see:
 
 -   length: 310 (range index)
@@ -187,15 +175,11 @@ As you can see:
             looks like closer. At least there is no incompatible values
             like mean of one feature is 0.1 and other is 1000. Also
             there are another reasons that I will mention next parts.
-:::
 
-::: {.cell .code _cell_guid="137897ca-b519-4ac3-afdd-6c4136447e39" _uuid="69d132068cce6a915aac7678b4e9fbcf3e365643" collapsed="true" trusted="false"}
 ``` python
 data.describe()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="3776dd3d-d0aa-419e-b788-e75454e94b86" _uuid="c8961b1f3a3a73547a0b7d27955f9844f6ad43eb"}
 pd.plotting.scatter_matrix:
 
 -   green: *normal* and red: *abnormal*
@@ -207,7 +191,6 @@ pd.plotting.scatter_matrix:
 -   marker: marker type
 :::
 
-::: {.cell .code _cell_guid="fb106765-bb47-452b-8d6e-3578b479873c" _uuid="5dc0763dde8b2638a5289f0b4496f384f85aca85" collapsed="true" trusted="false"}
 ``` python
 color_list = ['red' if i=='Abnormal' else 'green' for i in data.loc[:,'class']]
 pd.plotting.scatter_matrix(data.loc[:, data.columns != 'class'],
@@ -220,9 +203,7 @@ pd.plotting.scatter_matrix(data.loc[:, data.columns != 'class'],
                                        edgecolor= "black")
 plt.show()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="53fc7ab6-de8b-4b8f-9e4a-38c5db72eea0" _uuid="d77cef37b8c5c4f07d3f4aa94cc4ad1ccbd7caca"}
 Okay, as you understand in scatter matrix there are relations between
 each feature but how many *normal(green)* and *abnormal(red)* classes
 are there.
@@ -234,16 +215,12 @@ are there.
 definiton or numeric value of balanced data but this data is balanced
 enough for us. `<br>`{=html} Now lets learn first classification method
 KNN
-:::
 
-::: {.cell .code _cell_guid="36243fa5-1fa6-4f8b-bc16-43449b0dc898" _uuid="e1bb9fd338e6900888e2e4717f54be46cee848a2" collapsed="true" trusted="false"}
 ``` python
 sns.countplot(x="class", data=data)
 data.loc[:,'class'].value_counts()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="24a5d90f-3e7d-4733-a6f9-ff4f51145155" _uuid="9263c479815bb729dad40bf01b68aa18a3c946ac"}
 `<a id="4">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### K-NEAREST NEIGHBORS (KNN)
@@ -260,9 +237,7 @@ data.loc[:,'class'].value_counts()
 -   y: target variables(normal, abnormal)
 -   n_neighbors: K. In this example it is 3. it means that Look at the 3
     closest labeled data points
-:::
 
-::: {.cell .code _cell_guid="c717491d-2bd5-4dc7-ac13-b9f581b1cddd" _uuid="854f0a3898a928640b9714fcd584e48c9b377f9f" collapsed="true" trusted="false"}
 ``` python
 # KNN
 from sklearn.neighbors import KNeighborsClassifier
@@ -272,9 +247,7 @@ knn.fit(x,y)
 prediction = knn.predict(x)
 print('Prediction: {}'.format(prediction))
 ```
-:::
 
-::: {.cell .markdown _cell_guid="b5d85f4e-ab30-4c49-b2bc-6265b6baea9d" _uuid="6d9c3eacd279ddf7c0ef33b9e1814cd549d0feaa"}
 -   Well, we fit the data and predict it with KNN.
 -   So, do we predict correct or what is our accuracy or the accuracy is
     best metric to evaluate our result? Lets give answer of this
@@ -301,9 +274,7 @@ it is absurd :)
         train_test_split() produce exact same split at each time
 -   fit(x_train,y_train): fit on train sets
 -   score(x_test,y_test)): predict and give accuracy on test sets
-:::
 
-::: {.cell .code _cell_guid="79865658-c89f-43c8-a1a9-75acc4feab6a" _uuid="4702429fdfa62650937b09fde5a8fd3136da8c55" collapsed="true" trusted="false"}
 ``` python
 # train test split
 from sklearn.model_selection import train_test_split
@@ -315,9 +286,7 @@ prediction = knn.predict(x_test)
 #print('Prediction: {}'.format(prediction))
 print('With KNN (K=3) accuracy is: ',knn.score(x_test,y_test)) # accuracy
 ```
-:::
 
-::: {.cell .markdown _cell_guid="a5665258-3f7f-435a-a634-49eb0c0d66e0" _uuid="544f51ef05efe0b3ae4b02da806778bcfa715f35"}
 Accuracy is 86% so is it good ? I do not know actually, we will see at
 the end of tutorial. `<br>`{=html} Now the question is why we choose K =
 3 or what value we need to choose K. The answer is in model complexity
@@ -337,9 +306,7 @@ the end of tutorial. `<br>`{=html} Now the question is why we choose K =
     if K is 18, model is lead to underfit. Again accuracy is not enough.
     However look at when K is 18(best performance), accuracy has highest
     value almost 88%.
-:::
 
-::: {.cell .code _cell_guid="db2c7062-ce1b-4e8b-9b2f-0ee0cd679a91" _uuid="18d8739373085a9964071f38b8f2adcb64f25491" collapsed="true" trusted="false"}
 ``` python
 # Model complexity
 neig = np.arange(1, 25)
@@ -369,9 +336,7 @@ plt.savefig('graph.png')
 plt.show()
 print("Best accuracy is {} with K = {}".format(np.max(test_accuracy),1+test_accuracy.index(np.max(test_accuracy))))
 ```
-:::
 
-::: {.cell .markdown _cell_guid="b598ee81-e535-49c0-b53c-b13b0a5058db" _uuid="96423b4f710966c8071647874623c139c1c79bb7"}
 ### Up to this point what you learn:
 
 -   Supervised learning
@@ -391,9 +356,7 @@ other classification technique like Random Forest?**
     KNeighborsClassifier need to be RandomForestClassifier ) are same.
     You need to split, fit, predict your data and measue performance and
     choose hyperparameter of random forest(like max_depth).
-:::
 
-::: {.cell .markdown _cell_guid="f9d427a9-faa5-46cf-9e3c-2c8cea2571ad" _uuid="d075fd2a7c05e5414e33b7b1314d81a6b945e7b3"}
 `<a id="5">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### REGRESSION
@@ -409,9 +372,7 @@ other classification technique like Random Forest?**
     -   reshape(-1,1): If you do not use it shape of x or y becaomes
         (210,) and we cannot use it in sklearn, so we use shape(-1,1)
         and shape of x or y be (210, 1).
-:::
 
-::: {.cell .code _cell_guid="6b072c42-059f-4e45-9cfa-8ed39b274f72" _uuid="d2655c140423b1228c42d2e8dfe54344ba43dcb0" collapsed="true" trusted="false"}
 ``` python
 # create data1 that includes pelvic_incidence that is feature and sacral_slope that is target variable
 data1 = data[data['class'] =='Abnormal']
@@ -424,9 +385,7 @@ plt.xlabel('pelvic_incidence')
 plt.ylabel('sacral_slope')
 plt.show()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="874ac5e0-5bc0-4429-b6c5-707690b5dd77" _uuid="c84719d363ff736e96a0a575dfd0381bcbc549fb"}
 Now we have our data to make regression. In regression problems target
 value is continuously varying variable such as price of house or
 sacral_slope. Lets fit line into this points.
@@ -442,9 +401,7 @@ sacral_slope. Lets fit line into this points.
     cancel each other so we sum of square of residuals. It is called OLS
 -   Score: Score uses R\^2 method that is ((y_pred - y_mean)\^2
     )/(y_actual - y_mean)\^2
-:::
 
-::: {.cell .code _cell_guid="fb7991f3-5869-4df0-bf6c-30f61e8215c6" _uuid="7cdc74efa8c46dab5f14f6cc2779928c11a4fa62" collapsed="true" trusted="false"}
 ``` python
 # LinearRegression
 from sklearn.linear_model import LinearRegression
@@ -464,9 +421,7 @@ plt.xlabel('pelvic_incidence')
 plt.ylabel('sacral_slope')
 plt.show()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="242dd057-bb8a-463a-b04c-1072d5de1e0a" _uuid="3cf254d2feef8f9f886b0e1de12ec2b155083d2b"}
 `<a id="6">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### CROSS VALIDATION
@@ -488,9 +443,7 @@ but if I use cross validation I can find acceptable accuracy.
 -   cross_val_score(reg,x,y,cv=5): use reg(linear regression) with x and
     y that we define at above and K is 5. It means 5 times(split,
     train,predict)
-:::
 
-::: {.cell .code _cell_guid="bf504792-66f4-411e-bc1d-5b049da959ac" _uuid="1f1a77c5d5e6ca52c0264875362665f228e66078" collapsed="true" trusted="false"}
 ``` python
 # CV
 from sklearn.model_selection import cross_val_score
@@ -500,9 +453,7 @@ cv_result = cross_val_score(reg,x,y,cv=k) # uses R^2 as score
 print('CV Scores: ',cv_result)
 print('CV scores average: ',np.sum(cv_result)/k)
 ```
-:::
 
-::: {.cell .markdown _cell_guid="27ffec30-4951-4479-9d86-32495a80c08d" _uuid="be425f142c0acc1ab3009fafafa3616948f5c8a5"}
 ### Regularized Regression
 
 As we learn linear regression choose parameters (coefficients) while
@@ -536,9 +487,7 @@ coefficients.
 
 `<br>`{=html} Linear vs Ridge vs Lasso First impression: Linear Feature
 Selection: 1.Lasso 2.Ridge Regression model: 1.Ridge 2.Lasso 3.Linear
-:::
 
-::: {.cell .code _cell_guid="bdc1a379-07a4-4b61-8ac1-d7007ae33783" _uuid="85fa872e3988295a8fbe752bf96319518ca3595b" collapsed="true" trusted="false"}
 ``` python
 # Ridge
 from sklearn.linear_model import Ridge
@@ -548,9 +497,7 @@ ridge.fit(x_train,y_train)
 ridge_predict = ridge.predict(x_test)
 print('Ridge score: ',ridge.score(x_test,y_test))
 ```
-:::
 
-::: {.cell .code _cell_guid="de031d9f-b2f8-4fb1-a305-36cbc4dc970f" _uuid="57f91f4b4e267bd3eb22adfcdf719778c1901c92" collapsed="true" trusted="false"}
 ``` python
 # Lasso
 from sklearn.linear_model import Lasso
@@ -562,9 +509,7 @@ ridge_predict = lasso.predict(x_test)
 print('Lasso score: ',lasso.score(x_test,y_test))
 print('Lasso coefficients: ',lasso.coef_)
 ```
-:::
 
-::: {.cell .markdown _cell_guid="84f9d88d-28e9-4b26-8824-ae32de7e143c" _uuid="d70e2366ccc8797c92d2edacb4ab3b59fad4506d"}
 As you can see *pelvic_incidence* and *pelvic_tilt numeric* are
 important features but others are not important
 
@@ -589,9 +534,7 @@ classifier to diversify classification methods.
 -   precision = tp / (tp+fp)
 -   recall = tp / (tp+fn)
 -   f1 = 2 \* precision \* recall / ( precision + recall)
-:::
 
-::: {.cell .code _cell_guid="c71a33f5-5784-461b-949d-cb83f23dace6" _uuid="19fb6fb0f651e249835037a4f4b2f0b4a2619a27" collapsed="true" trusted="false"}
 ``` python
 # Confusion matrix with random forest
 from sklearn.metrics import classification_report, confusion_matrix
@@ -605,17 +548,13 @@ cm = confusion_matrix(y_test,y_pred)
 print('Confusion matrix: \n',cm)
 print('Classification report: \n',classification_report(y_test,y_pred))
 ```
-:::
 
-::: {.cell .code _cell_guid="fcba81bb-1257-48d0-afe1-a4416237cc73" _uuid="f2697bbc248102687596713406512b4cb7f24929" collapsed="true" trusted="false"}
 ``` python
 # visualize with seaborn library
 sns.heatmap(cm,annot=True,fmt="d") 
 plt.show()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="4552b965-e15d-4e05-9e02-224159e8d508" _uuid="dbe175099c0c8151c16ad0c78f1414de8fd9ebdc"}
 `<a id="7">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### ROC Curve with Logistic Regression
@@ -636,9 +575,7 @@ plt.show()
 -   If you want, I made ROC, Random forest and K fold CV in this
     tutorial.
     <https://www.kaggle.com/kanncaa1/roc-curve-with-k-fold-cv/>
-:::
 
-::: {.cell .code _cell_guid="4f4a8f76-9792-485f-83b0-79e2524ab83c" _uuid="c7fce3a219764388088ec5f3d57ab913f5c05f35" collapsed="true" trusted="false"}
 ``` python
 # ROC Curve with logistic regression
 from sklearn.metrics import roc_curve
@@ -660,9 +597,7 @@ plt.ylabel('True Positive Rate')
 plt.title('ROC')
 plt.show()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="ceb21da5-4ced-400c-a017-60f735802b69" _uuid="db2a0e5e83aee71a9585ee113cb01170325c96f1"}
 `<a id="8">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### HYPERPARAMETER TUNING
@@ -687,9 +622,7 @@ As I mention at KNN there are hyperparameters that are need to be tuned
     -   grid: K is from 1 to 50(exclude)
     -   GridSearchCV takes knn and grid and makes grid search. It means
         combination of all hyperparameters. Here it is k.
-:::
 
-::: {.cell .code _cell_guid="d1a56a4e-a307-4376-8d06-53fc30447ce6" _uuid="20fb485285b4d27da2e3eb89e8e43797db7c457a" collapsed="true" trusted="false"}
 ``` python
 # grid search cross validation with 1 hyperparameter
 from sklearn.model_selection import GridSearchCV
@@ -702,9 +635,7 @@ knn_cv.fit(x,y)# Fit
 print("Tuned hyperparameter k: {}".format(knn_cv.best_params_)) 
 print("Best score: {}".format(knn_cv.best_score_))
 ```
-:::
 
-::: {.cell .markdown _cell_guid="a4401913-229c-4bcc-8dd0-3563b824f6e9" _uuid="bdc9c267b635db5696e73cb6ba36d093c8f127c5"}
 Other grid search example with 2 hyperparameter
 
 -   First hyperparameter is C:logistic regression regularization
@@ -713,9 +644,7 @@ Other grid search example with 2 hyperparameter
     -   If C is low: underfit
 -   Second hyperparameter is penalty(lost function): l1 (Lasso) or
     l2(Ridge) as we learnt at linear regression part.
-:::
 
-::: {.cell .code _cell_guid="8988b749-3bf5-448f-830e-edce366348d0" _uuid="eb5961ae83511410ae491366bd12f70bef9f440b" collapsed="true" trusted="false"}
 ``` python
 # grid search cross validation with 2 hyperparameter
 # 1. hyperparameter is C:logistic regression regularization parameter
@@ -731,9 +660,7 @@ logreg_cv.fit(x_train,y_train)
 print("Tuned hyperparameters : {}".format(logreg_cv.best_params_))
 print("Best Accuracy: {}".format(logreg_cv.best_score_))
 ```
-:::
 
-::: {.cell .markdown _cell_guid="37171c8f-21ad-4628-8279-5cfedb27aafb" _uuid="7cd0bf0ed62c1858f5de74ee4f85c84765f8bc06"}
 `<a id="9">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### PRE-PROCESSING DATA
@@ -747,9 +674,7 @@ print("Best Accuracy: {}".format(logreg_cv.best_score_))
     *class_Normal*
 -   However we need to drop one of the column because they are
     duplicated
-:::
-
-::: {.cell .code _cell_guid="342e6f67-afeb-42b0-9e56-6521fd15e3ad" _uuid="8168cf770134142252e92022307815e31a931a34" collapsed="true" trusted="false"}
+}
 ``` python
 # Load data
 data = pd.read_csv('../input/column_2C_weka.csv')
@@ -757,18 +682,14 @@ data = pd.read_csv('../input/column_2C_weka.csv')
 df = pd.get_dummies(data)
 df.head(10)
 ```
-:::
-
-::: {.cell .code _cell_guid="e2541cfc-7d99-45ce-8486-80f7fec79257" _uuid="032c522e3f423822402c7f75fcfe3818894f68c8" collapsed="true" trusted="false"}
+}
 ``` python
 # drop one of the feature
 df.drop("class_Normal",axis = 1, inplace = True) 
 df.head(10)
 # instead of two steps we can make it with one step pd.get_dummies(data,drop_first = True)
 ```
-:::
 
-::: {.cell .markdown _cell_guid="f55c171e-36d4-4873-a0f6-e8ee411d0b64" _uuid="5465db779fed984dd89ad591889d1dadb88fc056"}
 Other preprocessing step is centering, scaling or normalizing
 
 -   If you listen my advice and watch KNN in youtube, you have noticed
@@ -781,9 +702,7 @@ Other preprocessing step is centering, scaling or normalizing
 -   How we create parameters name: for example SVM\_ \_C :
     stepName\_\_parameterName
 -   Then grid search to find best parameters
-:::
 
-::: {.cell .code _cell_guid="5d4aef88-f75e-4485-b481-bdeabbc0e4c7" _uuid="4690eac9c778ba7230fcee5a782a46396aa8c4ef" collapsed="true" trusted="false"}
 ``` python
 # SVM, pre-process and pipeline
 from sklearn.svm import SVC
@@ -803,9 +722,7 @@ y_pred = cv.predict(x_test)
 print("Accuracy: {}".format(cv.score(x_test, y_test)))
 print("Tuned Model Parameters: {}".format(cv.best_params_))
 ```
-:::
 
-::: {.cell .markdown _cell_guid="b343630f-75c8-4362-8cb0-858e71a2f4b0" _uuid="3a8fede9eadd9bd0438f7cb50c0155491d3f776b" collapsed="true"}
 `<a id="10">`{=html}`</a>`{=html} `<br>`{=html}
 
 ## UNSUPERVISED LEARNING
@@ -818,9 +735,7 @@ print("Tuned Model Parameters: {}".format(cv.best_params_))
     It has target variables. In order to work on unsupervised learning,
     lets drop target variables and to visualize just consider
     *pelvic_radius* and *degree_spondylolisthesis*
-:::
 
-::: {.cell .markdown _cell_guid="e492f7d0-5d05-4717-a149-e046d9435607" _uuid="f4927a23d072a9416b57f0bd611d71411407a907"}
 `<a id="11">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### KMEANS
@@ -830,9 +745,7 @@ print("Tuned Model Parameters: {}".format(cv.best_params_))
     point to one of K groups based on the features that are provided.
     Data points are clustered based on feature similarity
 -   KMeans(n_clusters = 2): n_clusters = 2 means that create 2 cluster
-:::
 
-::: {.cell .code _cell_guid="fa3dce86-b3cd-4a8f-b689-e5bc5f2fe551" _uuid="53175af6bce4acd6f743250c240033db04921ad4" collapsed="true" trusted="false"}
 ``` python
 # As you can see there is no labels in data
 data = pd.read_csv('../input/column_2C_weka.csv')
@@ -841,9 +754,7 @@ plt.xlabel('pelvic_radius')
 plt.ylabel('degree_spondylolisthesis')
 plt.show()
 ```
-:::
 
-::: {.cell .code _cell_guid="63a3245d-0056-46a0-ba65-a1f61d84441f" _uuid="9550966d8637f2d5c61633d597cd3746fb294e7d" collapsed="true" trusted="false"}
 ``` python
 # KMeans Clustering
 data2 = data.loc[:,['degree_spondylolisthesis','pelvic_radius']]
@@ -856,9 +767,7 @@ plt.xlabel('pelvic_radius')
 plt.xlabel('degree_spondylolisthesis')
 plt.show()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="fc405787-c073-4377-a4d8-0dcb83371888" _uuid="bb760dd8801ea5d0b7d98d1e22f784a9c999b900"}
 `<a id="12">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### EVALUATING OF CLUSTERING
@@ -870,18 +779,14 @@ order to evaluate clustering we will use cross tabulation table.
 -   First class *0* includes 138 abnormal and 100 normal patients
 -   Second class *1* includes 72 abnormal and 0 normal patiens \*The
     majority of two clusters are abnormal patients.
-:::
 
-::: {.cell .code _cell_guid="df624885-2e0e-474f-82cb-8a498049d8cc" _uuid="063968754033b4510dcb6f90245a1a9688d4c201" collapsed="true" trusted="false"}
 ``` python
 # cross tabulation table
 df = pd.DataFrame({'labels':labels,"class":data['class']})
 ct = pd.crosstab(df['labels'],df['class'])
 print(ct)
 ```
-:::
 
-::: {.cell .markdown _cell_guid="f5c33609-4573-443a-82c5-5dfe9852c582" _uuid="03df9051e892dc064c706619e796b5c9128c0a68"}
 The new question is that we know how many class data includes, but what
 if number of class is unknow in data. This is kind of like
 hyperparameter in KNN or regressions.
@@ -890,9 +795,7 @@ hyperparameter in KNN or regressions.
 -   lower inertia means more clusters
 -   What is the best number of clusters ? \*There are low inertia and
     not too many cluster trade off so we can choose elbow
-:::
 
-::: {.cell .code _cell_guid="710c918b-481b-4f32-94f6-adecd992a97e" _uuid="6c7e94ea35a4f535857aa2551ed646ff8c28c1ac" collapsed="true" trusted="false"}
 ``` python
 # inertia
 inertia_list = np.empty(8)
@@ -905,9 +808,7 @@ plt.xlabel('Number of cluster')
 plt.ylabel('Inertia')
 plt.show()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="6449fdb8-7e0b-4432-9ea3-6d866d899704" _uuid="06031b6c13b5f700bb2e3d53081d990f66c5e11b"}
 `<a id="13">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### STANDARDIZATION
@@ -918,16 +819,12 @@ plt.show()
 -   As we already have visualized data so you got the idea. Now we can
     use all features for clustering.
 -   We can use pipeline like supervised learning.
-:::
 
-::: {.cell .code _cell_guid="0ae27970-8319-45a7-ba7c-a8dd9d9b427e" _uuid="97a7e3a3fa1722970ff34935470be85f2ec7977b" collapsed="true" trusted="false"}
 ``` python
 data = pd.read_csv('../input/column_2C_weka.csv')
 data3 = data.drop('class',axis = 1)
 ```
-:::
 
-::: {.cell .code _cell_guid="65a46d3b-45b5-4bcd-8137-bdd5b6507ab0" _uuid="6883975e95325db10ebed6703c372cbe4da29a48" collapsed="true" trusted="false"}
 ``` python
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
@@ -940,9 +837,7 @@ df = pd.DataFrame({'labels':labels,"class":data['class']})
 ct = pd.crosstab(df['labels'],df['class'])
 print(ct)
 ```
-:::
 
-::: {.cell .markdown _cell_guid="1a31b9e4-f152-4da1-a132-a6e3a8090401" _uuid="a602f3d3d47f3bcc8b62bf0ed3114a3ca4760a03"}
 `<a id="14">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### HIERARCHY
@@ -950,9 +845,7 @@ print(ct)
 -   vertical lines are clusters
 -   height on dendogram: distance between merging cluster
 -   method= \'single\' : closest points of clusters
-:::
 
-::: {.cell .code _cell_guid="f04ec5bb-9f74-4036-9dfd-2649a3519d79" _uuid="a2dc27b105fc443f442b9605237f45ba69d1e1f1" collapsed="true" trusted="false"}
 ``` python
 from scipy.cluster.hierarchy import linkage,dendrogram
 
@@ -960,9 +853,7 @@ merg = linkage(data3.iloc[200:220,:],method = 'single')
 dendrogram(merg, leaf_rotation = 90, leaf_font_size = 6)
 plt.show()
 ```
-:::
 
-::: {.cell .markdown _cell_guid="15b4f98e-0c9e-49de-b69f-f583524c19ac" _uuid="4166039422a3ed14b4ac779da29401378dfb4dc2"}
 `<a id="15">`{=html}`</a>`{=html} `<br>`{=html}
 
 ### T - Distributed Stochastic Neighbor Embedding (T - SNE)
@@ -971,9 +862,7 @@ plt.show()
 -   fit_transform: it is both fit and transform. t-sne has only have
     fit_transform
 -   Varieties have same position relative to one another
-:::
 
-::: {.cell .code _cell_guid="b4ddf817-57ec-45eb-aa03-1ad385cd4f2e" _uuid="311a16a96b2ef3e9ca3f8e91db48f28837577291" collapsed="true" trusted="false"}
 ``` python
 from sklearn.manifold import TSNE
 model = TSNE(learning_rate=100)
