@@ -10,4 +10,4 @@ In this section of the curriculum, you will be introduced to the base concepts u
 1. [Introduction to machine learning](1.1-intro-to-ML/README.md)
 2. [The History of machine learning and AI](1.2-history-of-ML/README.md)
 3. [Fairness and machine learning](1.3-python-for-ML/README.md)
-4. [Techniques of machine learning](1.4-techniques-of-ML/README.md)
+3. [Techniques of machine learning](1.4-techniques-of-ML/README.md)
