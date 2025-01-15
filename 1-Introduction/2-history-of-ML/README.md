@@ -125,7 +125,6 @@ It remains to be seen what the future holds, but it is important to understand t
 
 Dig into one of these historical moments and learn more about the people behind them. There are fascinating characters, and no scientific discovery was ever created in a cultural vacuum. What do you discover?
 
-## [Post-lecture quiz](https://gray-sand-07a10f403.1.azurestaticapps.net/quiz/4/)
 
 ---
 ## Review & Self Study
@@ -140,4 +139,4 @@ Here are items to watch and listen to:
 
 ## Assignment
 
-[Create a timeline](assignment.md)
+
