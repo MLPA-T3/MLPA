@@ -1,54 +1,3 @@
----
-jupyter:
-  kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
-  language_info:
-    codemirror_mode:
-      name: ipython
-      version: 3
-    file_extension: .py
-    mimetype: text/x-python
-    name: python
-    nbconvert_exporter: python
-    pygments_lexer: ipython3
-    version: 3.6.5
-  nbformat: 4
-  nbformat_minor: 1
----
-
-::: {.cell .markdown _cell_guid="dcc6c619-c02a-4bea-b322-4f32779ae672" _uuid="819c6b57207e720308ea29491d85a6e8af8c253e"}
-# DATA SCIENTIST
-
-**In this tutorial, I only explain you what you need to be a data
-scientist neither more nor less.**
-
-Data scientist need to have these skills:
-
-1.  Basic Tools: Like python, R or SQL. You do not need to know
-    everything. What you only need is to learn how to use **python**
-2.  Basic Statistics: Like mean, median or standart deviation. If you
-    know basic statistics, you can use **python** easily.
-3.  Data Munging: Working with messy and difficult data. Like a
-    inconsistent date and string formatting. As you guess, **python**
-    helps us.
-4.  Data Visualization: Title is actually explanatory. We will visualize
-    the data with **python** like matplot and seaborn libraries.
-5.  Machine Learning: You do not need to understand math behind the
-    machine learning technique. You only need is understanding basics of
-    machine learning and learning how to implement it while using
-    **python**.
-
-### As a summary we will learn python to be data scientist !!! {#as-a-summary-we-will-learn-python-to-be-data-scientist-}
-
-## For parts 1, 2, 3, 4, 5 and 6, look at DATA SCIENCE TUTORIAL for BEGINNERS
-
-<https://www.kaggle.com/kanncaa1/data-sciencetutorial-for-beginners/>
-
-## In this tutorial, I am not going to learn machine learning to you, I am going to explain how to learn something by yourself. {#in-this-tutorial-i-am-not-going-to-learn-machine-learning-to-you-i-am-going-to-explain-how-to-learn-something-by-yourself}
-
-# *Confucius: Give a man a fish, and you feed him for a day. Teach a man to fish, and you feed him for a lifetime* {#confucius-give-a-man-a-fish-and-you-feed-him-for-a-day-teach-a-man-to-fish-and-you-feed-him-for-a-lifetime}
 
 **Content:**
 
@@ -130,9 +79,7 @@ Data scientist need to have these skills:
         <https://www.kaggle.com/kanncaa1/pytorch-tutorial-for-deep-learning-lovers>
     3.  Recurrent Neural Network:
         <https://www.kaggle.com/kanncaa1/recurrent-neural-network-with-pytorch>
-:::
 
-::: {.cell .code _cell_guid="5ee3a7aa-eca4-411b-9f84-d14c09e13730" _uuid="2b90d6250c8f9c2c302c849bffa132bd3483e893" collapsed="true" trusted="true"}
 ``` python
 # This Python 3 environment comes with many helpful analytics libraries installed
 # It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python
@@ -152,11 +99,7 @@ from subprocess import check_output
 print(check_output(["ls", "../input"]).decode("utf8"))
 
 # Any results you write to the current directory are saved as output.
-```
-:::
-
-::: {.cell .code _cell_guid="32af03f6-41be-41ec-9023-8cd519040984" _uuid="a9c5426e9e5cef81c1e1639ebe57e9b45dfd2c43" collapsed="true" trusted="false"}
-``` python
+ python
 # read csv (comma separated value) into data
 data = pd.read_csv('../input/column_2C_weka.csv')
 print(plt.style.available) # look at available plot styles
