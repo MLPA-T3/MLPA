@@ -1,5 +1,4 @@
-
-> Master Time Series Analysis and Forecasting with Practical Python Examples
+**Time Series Analysis and Forecasting with Practical Python Examples**
 
 ![](https://miro.medium.com/v2/resize:fit:816/1*KXFPyusCXxfqNxhSi1MFwQ.png)
 
@@ -60,8 +59,16 @@ Time series data has several unique characteristics that distinguish it from oth
 
 Let’s create a simple time series dataset using Python to illustrate these concepts.
 
-```
-<span id="311a" data-selectable-paragraph=""><span>import</span> pandas <span>as</span> pd<br><span>import</span> numpy <span>as</span> np<br><br># Creating a sample time series <span>data</span><br>date_range = pd.date_range(start=<span>'1/1/2020'</span>, periods=<span>100</span>, freq=<span>'D'</span>)<br><span>data</span> = np.random.randn(<span>100</span>)<br>time_series = pd.Series(<span>data</span>, index=date_range)<br><br>print(time_series.head())</span>
+```python
+import pandas as pd
+import numpy as np
+
+# Creating a sample time series data
+date_range = pd.date_range(start='1/1/2020', periods=100, freq='D')
+data = np.random.randn(100)
+time_series = pd.Series(data, index=date_range)
+
+print(time_series.head())
 ```
 
 This code snippet creates a univariate time series data with 100 daily records starting from January 1, 2020.
@@ -89,8 +96,22 @@ Missing values and outliers can significantly affect your analysis. Here are com
 
 **Python Code Example**
 
-```
-<span id="78ce" data-selectable-paragraph=""><br>time_series_with_nan = time_series.copy()<br>time_series_with_nan[::<span>10</span>] = np.nan  <br><br><br>time_series_filled = time_series_with_nan.fillna(method=<span>'ffill'</span>)<br><br><br><span>from</span> scipy.stats <span>import</span> zscore<br>z_scores = zscore(time_series_filled)<br>abs_z_scores = np.<span>abs</span>(z_scores)<br>filtered_entries = (abs_z_scores &lt; <span>3</span>)  <br>time_series_no_outliers = time_series_filled[filtered_entries]</span>
+```python
+# Creating a time series with NaN values
+time_series_with_nan = time_series.copy()
+time_series_with_nan[::10] = np.nan  
+
+# Filling missing values with forward fill
+time_series_filled = time_series_with_nan.fillna(method='ffill')
+
+# Importing zscore from scipy.stats
+from scipy.stats import zscore
+
+# Calculating z-scores and filtering outliers
+z_scores = zscore(time_series_filled)
+abs_z_scores = np.abs(z_scores)
+filtered_entries = (abs_z_scores < 3)
+time_series_no_outliers = time_series_filled[filtered_entries]
 ```
 
 **Data Transformation**
@@ -103,8 +124,19 @@ Transforming your data can help in identifying patterns and making it ready for 
 
 **Python Code Example**
 
-```
-<span id="4bb5" data-selectable-paragraph=""><br>moving_avg = time_series_no_outliers.rolling(window=5).mean()<br><br><br>differenced_series = time_series_no_outliers.diff().dropna()<br><br><br>from sklearn.preprocessing import StandardScaler<br>scaler = StandardScaler()<br>scaled_series = scaler.fit_transform(time_series_no_outliers.values.reshape(-1, 1))</span>
+```python
+# Calculating a moving average with a window size of 5
+moving_avg = time_series_no_outliers.rolling(window=5).mean()
+
+# Differencing the series to remove trends
+differenced_series = time_series_no_outliers.diff().dropna()
+
+# Importing StandardScaler from sklearn for scaling
+from sklearn.preprocessing import StandardScaler
+
+# Scaling the series for better model performance
+scaler = StandardScaler()
+scaled_series = scaler.fit_transform(time_series_no_outliers.values.reshape(-1, 1))
 ```
 
 > Preprocessing is a crucial step that ensures your data is clean and well-prepared for analysis. Proper handling of missing values and outliers, along with necessary transformations, can significantly enhance the accuracy of your forecasts.
@@ -129,8 +161,75 @@ Visualizing your time series data is crucial to grasp its underlying patterns an
 
 Let’s use Python to create these visualizations.
 
-```
-<span id="7f4c" data-selectable-paragraph=""><span>import</span> pandas <span>as</span> pd<br><span>import</span> numpy <span>as</span> np<br><span>import</span> matplotlib.pyplot <span>as</span> plt<br><span>from</span> statsmodels.graphics.tsaplots <span>import</span> plot_acf, plot_pacf<br><br><br>np.random.seed(<span>0</span>)<br>date_range = pd.date_range(start=<span>'1/1/2010'</span>, periods=<span>120</span>, freq=<span>'M'</span>)<br>trend = np.linspace(<span>50</span>, <span>150</span>, <span>120</span>)  <br>seasonality = <span>10</span> + <span>20</span> * np.sin(np.linspace(<span>0</span>, <span>3.14</span> * <span>2</span>, <span>120</span>))  <br>noise = np.random.normal(scale=<span>10</span>, size=<span>120</span>)  <br>data = trend + seasonality + noise<br>time_series = pd.Series(data, index=date_range)<br><br><br>time_series[::<span>15</span>] = np.nan<br>time_series = time_series.fillna(method=<span>'ffill'</span>)<br><br><br>moving_avg = time_series.rolling(window=<span>12</span>).mean()<br><br><br>differenced_series = time_series.diff().dropna()<br><br><br>time_series_monthly = time_series.resample(<span>'M'</span>).mean()<br><br><br>plt.figure(figsize=(<span>15</span>, <span>18</span>))<br><br><br>plt.subplot(<span>4</span>, <span>1</span>, <span>1</span>)<br>plt.plot(time_series, label=<span>'Original Time Series'</span>, color=<span>'blue'</span>)<br>plt.title(<span>'Time Series Line Plot'</span>)<br>plt.xlabel(<span>'Date'</span>)<br>plt.ylabel(<span>'Sales'</span>)<br>plt.legend()<br>plt.grid(<span>True</span>)<br><br><br>plt.subplot(<span>4</span>, <span>1</span>, <span>2</span>)<br>plt.plot(time_series_monthly, label=<span>'Monthly Averaged Time Series'</span>, color=<span>'green'</span>)<br>plt.title(<span>'Seasonal Plot'</span>)<br>plt.xlabel(<span>'Date'</span>)<br>plt.ylabel(<span>'Monthly Average Sales'</span>)<br>plt.legend()<br>plt.grid(<span>True</span>)<br><br><br>plt.subplot(<span>4</span>, <span>1</span>, <span>3</span>)<br>cleaned_time_series = time_series.dropna()<br>plot_acf(cleaned_time_series, lags=<span>20</span>, ax=plt.gca())<br>plt.title(<span>'Autocorrelation Plot'</span>)<br>plt.grid(<span>True</span>)<br><br><br>plt.subplot(<span>4</span>, <span>1</span>, <span>4</span>)<br>plot_pacf(cleaned_time_series, lags=<span>20</span>, ax=plt.gca())<br>plt.title(<span>'Partial Autocorrelation Plot'</span>)<br>plt.grid(<span>True</span>)<br><br>plt.tight_layout()<br>plt.savefig(<span>'./eda_visuals.png'</span>)<br>plt.show()</span>
+```python
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+
+# Set seed for reproducibility
+np.random.seed(0)
+
+# Generate a date range
+date_range = pd.date_range(start='1/1/2010', periods=120, freq='M')
+
+# Create components for the time series
+trend = np.linspace(50, 150, 120)
+seasonality = 10 + 20 * np.sin(np.linspace(0, 3.14 * 2, 120))
+noise = np.random.normal(scale=10, size=120)
+
+# Combine components to create the time series
+data = trend + seasonality + noise
+time_series = pd.Series(data, index=date_range)
+
+# Introduce missing values and fill them
+time_series[::15] = np.nan
+time_series = time_series.fillna(method='ffill')
+
+# Calculate moving average, differencing, and monthly averages
+moving_avg = time_series.rolling(window=12).mean()
+differenced_series = time_series.diff().dropna()
+time_series_monthly = time_series.resample('M').mean()
+
+# Plot the time series data
+plt.figure(figsize=(15, 18))
+
+# Plot original time series
+plt.subplot(4, 1, 1)
+plt.plot(time_series, label='Original Time Series', color='blue')
+plt.title('Time Series Line Plot')
+plt.xlabel('Date')
+plt.ylabel('Sales')
+plt.legend()
+plt.grid(True)
+
+# Plot seasonal pattern
+plt.subplot(4, 1, 2)
+plt.plot(time_series_monthly, label='Monthly Averaged Time Series', color='green')
+plt.title('Seasonal Plot')
+plt.xlabel('Date')
+plt.ylabel('Monthly Average Sales')
+plt.legend()
+plt.grid(True)
+
+# Plot autocorrelation
+plt.subplot(4, 1, 3)
+cleaned_time_series = time_series.dropna()
+plot_acf(cleaned_time_series, lags=20, ax=plt.gca())
+plt.title('Autocorrelation Plot')
+plt.grid(True)
+
+# Plot partial autocorrelation
+plt.subplot(4, 1, 4)
+plot_pacf(cleaned_time_series, lags=20, ax=plt.gca())
+plt.title('Partial Autocorrelation Plot')
+plt.grid(True)
+
+# Adjust layout and save the figure
+plt.tight_layout()
+plt.savefig('./eda_visuals.png')
+plt.show()
 ```
 
 EDA provides insights into the structure and characteristics of your time series data. For example:
@@ -154,15 +253,15 @@ There are two main models for decomposing a time series: additive and multiplica
 **1\. Additive Model**: This model assumes that the components add together to produce the time series:
 
 ```
-<span id="54ac" data-selectable-paragraph="">Y<span>(</span>t<span>)</span><span>=</span><span>T</span><span>(</span>t<span>)</span><span>+</span>S<span>(</span>t<span>)</span><span>+</span>R<span>(</span>t<span>)</span>Y<span>(</span>t<span>)</span> <span>=</span> <span>T</span><span>(</span>t<span>)</span> <span>+</span> S<span>(</span>t<span>)</span> <span>+</span> R<span>(</span>t<span>)</span>Y<span>(</span>t<span>)</span><span>=</span><span>T</span><span>(</span>t<span>)</span><span>+</span>S<span>(</span>t<span>)</span><span>+</span>R<span>(</span>t<span>)</span></span>
+    Y(t) = T(t) + S(t) + R(t)
 ```
 
-where Y(t)Y(t)Y(t) is the observed time series, T(t)T(t)T(t) is the trend component, S(t)S(t)S(t) is the seasonal component, and R(t)R(t)R(t) is the residual component.
+where Y(t) is the observed time series, T(t) is the trend component, S(t) is the seasonal component, and R(t) is the residual component.
 
 **2\. Multiplicative Model**: This model assumes that the components multiply together to produce the time series:
 
 ```
-<span id="d63e" data-selectable-paragraph="">Y<span>(</span>t<span>)</span><span>=</span><span>T</span><span>(</span>t<span>)</span>×S<span>(</span>t<span>)</span>×R<span>(</span>t<span>)</span>Y<span>(</span>t<span>)</span> <span>=</span> <span>T</span><span>(</span>t<span>)</span> <span>\</span>times S<span>(</span>t<span>)</span> <span>\</span>times R<span>(</span>t<span>)</span>Y<span>(</span>t<span>)</span><span>=</span><span>T</span><span>(</span>t<span>)</span>×S<span>(</span>t<span>)</span>×R<span>(</span>t<span>)</span></span>
+    Y(t) = T(t) × S(t) × R(t)
 ```
 
 The multiplicative model is useful when the seasonal variations are proportional to the level of the trend.
@@ -173,8 +272,61 @@ Let’s decompose the time series using Python’s `statsmodels` library. We'll 
 
 **Python Code Example**
 
-```
-<span id="c888" data-selectable-paragraph=""><span>import</span> pandas <span>as</span> pd<br><span>import</span> numpy <span>as</span> np<br><span>import</span> matplotlib.pyplot <span>as</span> plt<br><span>from</span> statsmodels.tsa.seasonal <span>import</span> seasonal_decompose<br><br><br>np.random.seed(<span>0</span>)<br>date_range = pd.date_range(start=<span>'1/1/2010'</span>, periods=<span>120</span>, freq=<span>'M'</span>)<br>trend = np.linspace(<span>50</span>, <span>150</span>, <span>120</span>)  <br>seasonality = <span>10</span> + <span>20</span> * np.sin(np.linspace(<span>0</span>, <span>3.14</span> * <span>2</span>, <span>120</span>))  <br>noise = np.random.normal(scale=<span>10</span>, size=<span>120</span>)  <br>data = trend + seasonality + noise<br>time_series = pd.Series(data, index=date_range)<br><br><br>time_series[::<span>15</span>] = np.nan<br>time_series = time_series.fillna(method=<span>'ffill'</span>)  <br><br><br>time_series = time_series.dropna()<br><br><br>decomposition = seasonal_decompose(time_series, model=<span>'additive'</span>)<br>trend = decomposition.trend<br>seasonal = decomposition.seasonal<br>residual = decomposition.resid<br><br><br>plt.figure(figsize=(<span>15</span>, <span>12</span>))<br><br>plt.subplot(<span>4</span>, <span>1</span>, <span>1</span>)<br>plt.plot(time_series, label=<span>'Original Time Series'</span>, color=<span>'blue'</span>)<br>plt.title(<span>'Original Time Series'</span>)<br>plt.legend()<br><br>plt.subplot(<span>4</span>, <span>1</span>, <span>2</span>)<br>plt.plot(trend, label=<span>'Trend Component'</span>, color=<span>'orange'</span>)<br>plt.title(<span>'Trend Component'</span>)<br>plt.legend()<br><br>plt.subplot(<span>4</span>, <span>1</span>, <span>3</span>)<br>plt.plot(seasonal, label=<span>'Seasonal Component'</span>, color=<span>'green'</span>)<br>plt.title(<span>'Seasonal Component'</span>)<br>plt.legend()<br><br>plt.subplot(<span>4</span>, <span>1</span>, <span>4</span>)<br>plt.plot(residual, label=<span>'Residual Component'</span>, color=<span>'red'</span>)<br>plt.title(<span>'Residual Component'</span>)<br>plt.legend()<br><br><br>plt.tight_layout()<br>plt.savefig(<span>'/visuals/time_series_decomposition.png'</span>)<br>plt.show()</span>
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+# Setting the random seed
+np.random.seed(0)
+
+# Creating time series data
+date_range = pd.date_range(start='1/1/2010', periods=120, freq='M')
+trend = np.linspace(50, 150, 120)  
+seasonality = 10 + 20 * np.sin(np.linspace(0, 3.14 * 2, 120))  
+noise = np.random.normal(scale=10, size=120)  
+data = trend + seasonality + noise
+time_series = pd.Series(data, index=date_range)
+
+# Handling missing values
+time_series[::15] = np.nan
+time_series = time_series.fillna(method='ffill')
+time_series = time_series.dropna()
+
+# Decomposing the time series
+decomposition = seasonal_decompose(time_series, model='additive')
+trend = decomposition.trend
+seasonal = decomposition.seasonal
+residual = decomposition.resid
+
+# Plotting the decomposition
+plt.figure(figsize=(15, 12))
+
+plt.subplot(4, 1, 1)
+plt.plot(time_series, label='Original Time Series', color='blue')
+plt.title('Original Time Series')
+plt.legend()
+
+plt.subplot(4, 1, 2)
+plt.plot(trend, label='Trend Component', color='orange')
+plt.title('Trend Component')
+plt.legend()
+
+plt.subplot(4, 1, 3)
+plt.plot(seasonal, label='Seasonal Component', color='green')
+plt.title('Seasonal Component')
+plt.legend()
+
+plt.subplot(4, 1, 4)
+plt.plot(residual, label='Residual Component', color='red')
+plt.title('Residual Component')
+plt.legend()
+
+plt.tight_layout()
+plt.savefig('./visuals/time_series_decomposition.png')
+plt.show()
+
 ```
 
 Decomposing the time series helps in identifying:
@@ -219,8 +371,63 @@ We’ll use the `statsmodels` library to demonstrate how to fit ARIMA and SARIMA
 
 **Python Code Example**
 
-```
-<span id="eb19" data-selectable-paragraph=""><span>import</span> pandas <span>as</span> pd<br><span>import</span> numpy <span>as</span> np<br><span>import</span> matplotlib.pyplot <span>as</span> plt<br><span>from</span> statsmodels.tsa.arima.model <span>import</span> ARIMA<br><span>from</span> statsmodels.tsa.statespace.sarimax <span>import</span> SARIMAX<br><br><br>np.random.seed(<span>0</span>)<br>date_range = pd.date_range(start=<span>'1/1/2010'</span>, periods=<span>120</span>, freq=<span>'M'</span>)<br>trend = np.linspace(<span>50</span>, <span>150</span>, <span>120</span>)  <br>seasonality = <span>10</span> + <span>20</span> * np.sin(np.linspace(<span>0</span>, <span>3.14</span> * <span>2</span>, <span>120</span>))  <br>noise = np.random.normal(scale=<span>10</span>, size=<span>120</span>)  <br>data = trend + seasonality + noise<br>time_series = pd.Series(data, index=date_range)<br><br><br>time_series[::<span>15</span>] = np.nan<br>time_series = time_series.fillna(method=<span>'ffill'</span>)  <br><br><br>time_series = time_series.dropna()<br><br><br>arima_model = ARIMA(time_series, order=(<span>1</span>, <span>1</span>, <span>1</span>))<br>arima_fit = arima_model.fit()<br><span>print</span>(arima_fit.summary())<br><br><br>sarima_model = SARIMAX(time_series, order=(<span>1</span>, <span>1</span>, <span>1</span>), seasonal_order=(<span>1</span>, <span>1</span>, <span>1</span>, <span>12</span>))<br>sarima_fit = sarima_model.fit(disp=<span>False</span>)<br><span>print</span>(sarima_fit.summary())<br><br><br>arima_forecast = arima_fit.get_forecast(steps=<span>12</span>)<br>arima_forecast_index = pd.date_range(start=time_series.index[-<span>1</span>], periods=<span>12</span>, freq=<span>'M'</span>)<br>arima_forecast_series = pd.Series(arima_forecast.predicted_mean, index=arima_forecast_index)<br><br><br>sarima_forecast = sarima_fit.get_forecast(steps=<span>12</span>)<br>sarima_forecast_index = pd.date_range(start=time_series.index[-<span>1</span>], periods=<span>12</span>, freq=<span>'M'</span>)<br>sarima_forecast_series = pd.Series(sarima_forecast.predicted_mean, index=sarima_forecast_index)<br><br><br>plt.figure(figsize=(<span>15</span>, <span>8</span>))<br>plt.plot(time_series, label=<span>'Original Time Series'</span>, color=<span>'blue'</span>)<br>plt.plot(arima_forecast_series, label=<span>'ARIMA Forecast'</span>, color=<span>'orange'</span>)<br>plt.plot(sarima_forecast_series, label=<span>'SARIMA Forecast'</span>, color=<span>'green'</span>)<br>plt.title(<span>'Time Series Forecasting'</span>)<br>plt.xlabel(<span>'Date'</span>)<br>plt.ylabel(<span>'Sales'</span>)<br>plt.legend()<br>plt.grid(<span>True</span>)<br>plt.tight_layout()<br>plt.savefig(<span>'/visuals/time_series_forecasting.png'</span>)<br>plt.show()</span>
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+# Setting the random seed
+np.random.seed(0)
+
+# Creating time series data
+date_range = pd.date_range(start='1/1/2010', periods=120, freq='M')
+trend = np.linspace(50, 150, 120)
+seasonality = 10 + 20 * np.sin(np.linspace(0, 3.14 * 2, 120))
+noise = np.random.normal(scale=10, size=120)
+data = trend + seasonality + noise
+time_series = pd.Series(data, index=date_range)
+
+# Handling missing values
+time_series[::15] = np.nan
+time_series = time_series.fillna(method='ffill')
+time_series = time_series.dropna()
+
+# Fitting ARIMA model
+arima_model = ARIMA(time_series, order=(1, 1, 1))
+arima_fit = arima_model.fit()
+print(arima_fit.summary())
+
+# Fitting SARIMA model
+sarima_model = SARIMAX(time_series, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
+sarima_fit = sarima_model.fit(disp=False)
+print(sarima_fit.summary())
+
+# Forecasting with ARIMA
+arima_forecast = arima_fit.get_forecast(steps=12)
+arima_forecast_index = pd.date_range(start=time_series.index[-1], periods=12, freq='M')
+arima_forecast_series = pd.Series(arima_forecast.predicted_mean, index=arima_forecast_index)
+
+# Forecasting with SARIMA
+sarima_forecast = sarima_fit.get_forecast(steps=12)
+sarima_forecast_index = pd.date_range(start=time_series.index[-1], periods=12, freq='M')
+sarima_forecast_series = pd.Series(sarima_forecast.predicted_mean, index=sarima_forecast_index)
+
+# Plotting the forecasts
+plt.figure(figsize=(15, 8))
+plt.plot(time_series, label='Original Time Series', color='blue')
+plt.plot(arima_forecast_series, label='ARIMA Forecast', color='orange')
+plt.plot(sarima_forecast_series, label='SARIMA Forecast', color='green')
+plt.title('Time Series Forecasting')
+plt.xlabel('Date')
+plt.ylabel('Sales')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig('./visuals/time_series_forecasting.png')
+plt.show()
+
 ```
 
 Please note that:
@@ -264,12 +471,98 @@ Let’s evaluate the ARIMA and SARIMA models we fitted in the previous section.
 
 **Python Code Example**
 
-```
-<span id="572b" data-selectable-paragraph=""><span>import</span> pandas <span>as</span> pd<br><span>import</span> numpy <span>as</span> np<br><span>import</span> matplotlib.pyplot <span>as</span> plt<br><span>from</span> statsmodels.tsa.arima.model <span>import</span> ARIMA<br><span>from</span> statsmodels.tsa.statespace.sarimax <span>import</span> SARIMAX<br><span>from</span> sklearn.metrics <span>import</span> mean_absolute_error, mean_squared_error<br><br><br>np.random.seed(<span>0</span>)<br>date_range = pd.date_range(start=<span>'1/1/2010'</span>, periods=<span>120</span>, freq=<span>'M'</span>)<br>trend = np.linspace(<span>50</span>, <span>150</span>, <span>120</span>)  <br>seasonality = <span>10</span> + <span>20</span> * np.sin(np.linspace(<span>0</span>, <span>3.14</span> * <span>2</span>, <span>120</span>))  <br>noise = np.random.normal(scale=<span>10</span>, size=<span>120</span>)  <br>data = trend + seasonality + noise<br>time_series = pd.Series(data, index=date_range)<br><br><br>time_series[::<span>15</span>] = np.nan<br>time_series = time_series.fillna(method=<span>'ffill'</span>)  <br><br><br>time_series = time_series.dropna()<br><br><br>arima_model = ARIMA(time_series, order=(<span>1</span>, <span>1</span>, <span>1</span>))<br>arima_fit = arima_model.fit()<br><br><br>sarima_model = SARIMAX(time_series, order=(<span>1</span>, <span>1</span>, <span>1</span>), seasonal_order=(<span>1</span>, <span>1</span>, <span>1</span>, <span>12</span>))<br>sarima_fit = sarima_model.fit(disp=<span>False</span>)<br><br><br>arima_forecast = arima_fit.get_forecast(steps=<span>12</span>)<br>arima_forecast_series = arima_forecast.predicted_mean<br>arima_forecast_ci = arima_forecast.conf_int()<br><br><br>sarima_forecast = sarima_fit.get_forecast(steps=<span>12</span>)<br>sarima_forecast_series = sarima_forecast.predicted_mean<br>sarima_forecast_ci = sarima_forecast.conf_int()<br><br><br>actual = time_series[-<span>12</span>:]<br><br><br>arima_mae = mean_absolute_error(actual, arima_forecast_series[:<span>12</span>])<br>arima_mse = mean_squared_error(actual, arima_forecast_series[:<span>12</span>])<br>arima_rmse = np.sqrt(arima_mse)<br>arima_mape = np.mean(np.<span>abs</span>((actual - arima_forecast_series[:<span>12</span>]) / actual)) * <span>100</span><br><br><br>sarima_mae = mean_absolute_error(actual, sarima_forecast_series[:<span>12</span>])<br>sarima_mse = mean_squared_error(actual, sarima_forecast_series[:<span>12</span>])<br>sarima_rmse = np.sqrt(sarima_mse)<br>sarima_mape = np.mean(np.<span>abs</span>((actual - sarima_forecast_series[:<span>12</span>]) / actual)) * <span>100</span><br><br><span>print</span>(<span>f"ARIMA MAE: <span>{arima_mae}</span>, MSE: <span>{arima_mse}</span>, RMSE: <span>{arima_rmse}</span>, MAPE: <span>{arima_mape}</span>"</span>)<br><span>print</span>(<span>f"SARIMA MAE: <span>{sarima_mae}</span>, MSE: <span>{sarima_mse}</span>, RMSE: <span>{sarima_rmse}</span>, MAPE: <span>{sarima_mape}</span>"</span>)<br><br><br>plt.figure(figsize=(<span>15</span>, <span>6</span>))<br>plt.subplot(<span>2</span>, <span>1</span>, <span>1</span>)<br>plt.plot(arima_fit.resid, label=<span>'ARIMA Residuals'</span>, color=<span>'blue'</span>)<br>plt.title(<span>'ARIMA Model Residuals'</span>)<br>plt.legend()<br><br>plt.subplot(<span>2</span>, <span>1</span>, <span>2</span>)<br>plt.plot(sarima_fit.resid, label=<span>'SARIMA Residuals'</span>, color=<span>'green'</span>)<br>plt.title(<span>'SARIMA Model Residuals'</span>)<br>plt.legend()<br><br>plt.tight_layout()<br>plt.savefig(<span>'./visuals/model_evaluation_residuals.png'</span>)<br>plt.show()</span>
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+# Setting the random seed
+np.random.seed(0)
+
+# Creating time series data
+date_range = pd.date_range(start='1/1/2010', periods=120, freq='M')
+trend = np.linspace(50, 150, 120)
+seasonality = 10 + 20 * np.sin(np.linspace(0, 3.14 * 2, 120))
+noise = np.random.normal(scale=10, size=120)
+data = trend + seasonality + noise
+time_series = pd.Series(data, index=date_range)
+
+# Handling missing values
+time_series[::15] = np.nan
+time_series = time_series.fillna(method='ffill')
+time_series = time_series.dropna()
+
+# Fitting ARIMA model
+arima_model = ARIMA(time_series, order=(1, 1, 1))
+arima_fit = arima_model.fit()
+
+# Fitting SARIMA model
+sarima_model = SARIMAX(time_series, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
+sarima_fit = sarima_model.fit(disp=False)
+
+# Forecasting with ARIMA
+arima_forecast = arima_fit.get_forecast(steps=12)
+arima_forecast_series = arima_forecast.predicted_mean
+arima_forecast_ci = arima_forecast.conf_int()
+
+# Forecasting with SARIMA
+sarima_forecast = sarima_fit.get_forecast(steps=12)
+sarima_forecast_series = sarima_forecast.predicted_mean
+sarima_forecast_ci = sarima_forecast.conf_int()
+
+# Actual values
+actual = time_series[-12:]
+
+# Evaluation metrics for ARIMA
+arima_mae = mean_absolute_error(actual, arima_forecast_series[:12])
+arima_mse = mean_squared_error(actual, arima_forecast_series[:12])
+arima_rmse = np.sqrt(arima_mse)
+arima_mape = np.mean(np.abs((actual - arima_forecast_series[:12]) / actual)) * 100
+
+# Evaluation metrics for SARIMA
+sarima_mae = mean_absolute_error(actual, sarima_forecast_series[:12])
+sarima_mse = mean_squared_error(actual, sarima_forecast_series[:12])
+sarima_rmse = np.sqrt(sarima_mse)
+sarima_mape = np.mean(np.abs((actual - sarima_forecast_series[:12]) / actual)) * 100
+
+# Print metrics
+print(f"ARIMA MAE: {arima_mae}, MSE: {arima_mse}, RMSE: {arima_rmse}, MAPE: {arima_mape}")
+print(f"SARIMA MAE: {sarima_mae}, MSE: {sarima_mse}, RMSE: {sarima_rmse}, MAPE: {sarima_mape}")
+
+# Plotting residuals
+plt.figure(figsize=(15, 6))
+plt.subplot(2, 1, 1)
+plt.plot(arima_fit.resid, label='ARIMA Residuals', color='blue')
+plt.title('ARIMA Model Residuals')
+plt.legend()
+
+plt.subplot(2, 1, 2)
+plt.plot(sarima_fit.resid, label='SARIMA Residuals', color='green')
+plt.title('SARIMA Model Residuals')
+plt.legend()
+
+plt.tight_layout()
+plt.savefig('./visuals/model_evaluation_residuals.png')
+plt.show()
+
 ```
 
 ```
-<span id="ef30" data-selectable-paragraph=""><span>ARIMA MAE:</span> <span>6.740723561298947</span><span>,</span> <span>MSE:</span> <span>86.05719515259203</span><span>,</span> <span>RMSE:</span> <span>9.276701738904405</span><span>,</span> <span>MAPE:</span> <span>nan</span><br><span>SARIMA MAE:</span> <span>11.684219153028662</span><span>,</span> <span>MSE:</span> <span>195.5162161410725</span><span>,</span> <span>RMSE:</span> <span>13.982711330105921</span><span>,</span> <span>MAPE:</span> <span>nan</span></span>
+ARIMA Metrics:
+
+MAE: 6.740723561298947
+MSE: 86.05719515259203
+RMSE: 9.276701738904405
+MAPE: NaN (likely due to division by zero or very small actual values)
+SARIMA Metrics:
+
+MAE: 11.684219153028662
+MSE: 195.5162161410725
+RMSE: 13.982711330105921
+MAPE: NaN (same as above, potentially from invalid division)
 ```
 
 ![](https://miro.medium.com/v2/resize:fit:816/1*sZ3dvFKZ9T072BoXs8nrkA.png)
@@ -327,8 +620,111 @@ Let’s assume we have a dataset of monthly sales data for a retail store over t
 
 **Python Code Example**
 
-```
-<span id="cbc1" data-selectable-paragraph="">import pandas as pd<br>import numpy as np<br>import matplotlib<span>.pyplot</span> as plt<br><span>from</span> statsmodels<span>.tsa</span><span>.seasonal</span> import seasonal_decompose<br><span>from</span> statsmodels<span>.tsa</span><span>.arima</span><span>.model</span> import ARIMA<br><span>from</span> statsmodels<span>.tsa</span><span>.statespace</span><span>.sarimax</span> import SARIMAX<br><span>from</span> sklearn<span>.metrics</span> import mean_absolute_error, mean_squared_error<br><br># Step <span>1</span>: Load the Data<br>np.random.<span>seed</span>(<span>0</span>)<br>date_range = pd.<span>date_range</span>(start=<span>'1/1/2010'</span>, periods=<span>120</span>, freq=<span>'M'</span>)<br>trend = np.<span>linspace</span>(<span>50</span>, <span>150</span>, <span>120</span>)  # Linear trend<br>seasonality = <span>10</span> + <span>20</span> * np.<span>sin</span>(np.<span>linspace</span>(<span>0</span>, <span>3.14</span> * <span>2</span>, <span>120</span>))  # Seasonal component<br>noise = np.random.<span>normal</span>(scale=<span>10</span>, size=<span>120</span>)  # Random noise<br>data = trend + seasonality + noise<br>time_series = pd.<span>Series</span>(data, index=date_range)<br><br># Step <span>2</span>: Preprocess the Data<br>time_series[::<span>15</span>] = np.nan<br>time_series = time_series.<span>fillna</span>(method=<span>'ffill'</span>)<br>time_series = time_series.<span>dropna</span>()<br><br># Step <span>3</span>: Exploratory Data Analysis (EDA)<br>plt.<span>figure</span>(figsize=(<span>10</span>, <span>6</span>))<br>plt.<span>plot</span>(time_series, label=<span>'Monthly Sales'</span>)<br>plt.<span>title</span>(<span>'Monthly Sales Data'</span>)<br>plt.<span>xlabel</span>(<span>'Date'</span>)<br>plt.<span>ylabel</span>(<span>'Sales'</span>)<br>plt.<span>legend</span>()<br>plt.<span>show</span>()<br><br># Step <span>4</span>: Time Series Decomposition<br>decomposition = <span>seasonal_decompose</span>(time_series, model=<span>'additive'</span>)<br>trend = decomposition.trend<br>seasonal = decomposition.seasonal<br>residual = decomposition.resid<br><br>plt.<span>figure</span>(figsize=(<span>15</span>, <span>12</span>))<br>plt.<span>subplot</span>(<span>4</span>, <span>1</span>, <span>1</span>)<br>plt.<span>plot</span>(time_series, label=<span>'Original Time Series'</span>, color=<span>'blue'</span>)<br>plt.<span>title</span>(<span>'Original Time Series'</span>)<br>plt.<span>legend</span>()<br>plt.<span>subplot</span>(<span>4</span>, <span>1</span>, <span>2</span>)<br>plt.<span>plot</span>(trend, label=<span>'Trend Component'</span>, color=<span>'orange'</span>)<br>plt.<span>title</span>(<span>'Trend Component'</span>)<br>plt.<span>legend</span>()<br>plt.<span>subplot</span>(<span>4</span>, <span>1</span>, <span>3</span>)<br>plt.<span>plot</span>(seasonal, label=<span>'Seasonal Component'</span>, color=<span>'green'</span>)<br>plt.<span>title</span>(<span>'Seasonal Component'</span>)<br>plt.<span>legend</span>()<br>plt.<span>subplot</span>(<span>4</span>, <span>1</span>, <span>4</span>)<br>plt.<span>plot</span>(residual, label=<span>'Residual Component'</span>, color=<span>'red'</span>)<br>plt.<span>title</span>(<span>'Residual Component'</span>)<br>plt.<span>legend</span>()<br>plt.<span>tight_layout</span>()<br>plt.<span>show</span>()<br><br># Step <span>5</span>: Model Building and Forecasting<br>arima_model = <span>ARIMA</span>(time_series, order=(<span>1</span>, <span>1</span>, <span>1</span>))<br>arima_fit = arima_model.<span>fit</span>()<br><br>sarima_model = <span>SARIMAX</span>(time_series, order=(<span>1</span>, <span>1</span>, <span>1</span>), seasonal_order=(<span>1</span>, <span>1</span>, <span>1</span>, <span>12</span>))<br>sarima_fit = sarima_model.<span>fit</span>(disp=False)<br><br>arima_forecast = arima_fit.<span>get_forecast</span>(steps=<span>12</span>)<br>arima_forecast_series = arima_forecast.predicted_mean<br>arima_forecast_ci = arima_forecast.<span>conf_int</span>()<br><br>sarima_forecast = sarima_fit.<span>get_forecast</span>(steps=<span>12</span>)<br>sarima_forecast_series = sarima_forecast.predicted_mean<br>sarima_forecast_ci = sarima_forecast.<span>conf_int</span>()<br><br># Step <span>6</span>: Model Evaluation<br>actual = time_series[-<span>12</span>:]<br><br>arima_mae = <span>mean_absolute_error</span>(actual, arima_forecast_series)<br>arima_mse = <span>mean_squared_error</span>(actual, arima_forecast_series)<br>arima_rmse = np.<span>sqrt</span>(arima_mse)<br>arima_mape = np.<span>mean</span>(np.<span>abs</span>((actual - arima_forecast_series) / actual)) * <span>100</span><br><br>sarima_mae = <span>mean_absolute_error</span>(actual, sarima_forecast_series)<br>sarima_mse = <span>mean_squared_error</span>(actual, sarima_forecast_series)<br>sarima_rmse = np.<span>sqrt</span>(sarima_mse)<br>sarima_mape = np.<span>mean</span>(np.<span>abs</span>((actual - sarima_forecast_series) / actual)) * <span>100</span><br><br><span>print</span>(f<span>"ARIMA MAE: {arima_mae}, MSE: {arima_mse}, RMSE: {arima_rmse}, MAPE: {arima_mape}"</span>)<br><span>print</span>(f<span>"SARIMA MAE: {sarima_mae}, MSE: {sarima_mse}, RMSE: {sarima_rmse}, MAPE: {sarima_mape}"</span>)<br><br># Step <span>7</span>: Plotting the Forecast<br>plt.<span>figure</span>(figsize=(<span>15</span>, <span>8</span>))<br>plt.<span>plot</span>(time_series, label=<span>'Original Time Series'</span>, color=<span>'blue'</span>)<br>plt.<span>plot</span>(arima_forecast_series.index, arima_forecast_series, label=<span>'ARIMA Forecast'</span>, color=<span>'orange'</span>)<br>plt.<span>plot</span>(sarima_forecast_series.index, sarima_forecast_series, label=<span>'SARIMA Forecast'</span>, color=<span>'green'</span>)<br>plt.<span>fill_between</span>(arima_forecast_series.index, arima_forecast_ci.iloc[:, <span>0</span>], arima_forecast_ci.iloc[:, <span>1</span>], color=<span>'orange'</span>, alpha=<span>0.3</span>)<br>plt.<span>fill_between</span>(sarima_forecast_series.index, sarima_forecast_ci.iloc[:, <span>0</span>], sarima_forecast_ci.iloc[:, <span>1</span>], color=<span>'green'</span>, alpha=<span>0.3</span>)<br>plt.<span>title</span>(<span>'Time Series Forecasting'</span>)<br>plt.<span>xlabel</span>(<span>'Date'</span>)<br>plt.<span>ylabel</span>(<span>'Sales'</span>)<br>plt.<span>legend</span>()<br>plt.<span>grid</span>(True)<br>plt.<span>tight_layout</span>()<br>plt.<span>savefig</span>(<span>'/visuals/practical_implementation_forecasting.png'</span>)<br>plt.<span>show</span>()</span>
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+# Step 1: Load the Data
+np.random.seed(0)
+date_range = pd.date_range(start='1/1/2010', periods=120, freq='M')
+trend = np.linspace(50, 150, 120)  # Linear trend
+seasonality = 10 + 20 * np.sin(np.linspace(0, 3.14 * 2, 120))  # Seasonal component
+noise = np.random.normal(scale=10, size=120)  # Random noise
+data = trend + seasonality + noise
+time_series = pd.Series(data, index=date_range)
+
+# Step 2: Preprocess the Data
+time_series[::15] = np.nan
+time_series = time_series.fillna(method='ffill')
+time_series = time_series.dropna()
+
+# Step 3: Exploratory Data Analysis (EDA)
+plt.figure(figsize=(10, 6))
+plt.plot(time_series, label='Monthly Sales')
+plt.title('Monthly Sales Data')
+plt.xlabel('Date')
+plt.ylabel('Sales')
+plt.legend()
+plt.show()
+
+# Step 4: Time Series Decomposition
+decomposition = seasonal_decompose(time_series, model='additive')
+trend = decomposition.trend
+seasonal = decomposition.seasonal
+residual = decomposition.resid
+
+plt.figure(figsize=(15, 12))
+plt.subplot(4, 1, 1)
+plt.plot(time_series, label='Original Time Series', color='blue')
+plt.title('Original Time Series')
+plt.legend()
+plt.subplot(4, 1, 2)
+plt.plot(trend, label='Trend Component', color='orange')
+plt.title('Trend Component')
+plt.legend()
+plt.subplot(4, 1, 3)
+plt.plot(seasonal, label='Seasonal Component', color='green')
+plt.title('Seasonal Component')
+plt.legend()
+plt.subplot(4, 1, 4)
+plt.plot(residual, label='Residual Component', color='red')
+plt.title('Residual Component')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# Step 5: Model Building and Forecasting
+arima_model = ARIMA(time_series, order=(1, 1, 1))
+arima_fit = arima_model.fit()
+
+sarima_model = SARIMAX(time_series, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
+sarima_fit = sarima_model.fit(disp=False)
+
+arima_forecast = arima_fit.get_forecast(steps=12)
+arima_forecast_series = arima_forecast.predicted_mean
+arima_forecast_ci = arima_forecast.conf_int()
+
+sarima_forecast = sarima_fit.get_forecast(steps=12)
+sarima_forecast_series = sarima_forecast.predicted_mean
+sarima_forecast_ci = sarima_forecast.conf_int()
+
+# Step 6: Model Evaluation
+actual = time_series[-12:]
+
+arima_mae = mean_absolute_error(actual, arima_forecast_series)
+arima_mse = mean_squared_error(actual, arima_forecast_series)
+arima_rmse = np.sqrt(arima_mse)
+arima_mape = np.mean(np.abs((actual - arima_forecast_series) / actual)) * 100
+
+sarima_mae = mean_absolute_error(actual, sarima_forecast_series)
+sarima_mse = mean_squared_error(actual, sarima_forecast_series)
+sarima_rmse = np.sqrt(sarima_mse)
+sarima_mape = np.mean(np.abs((actual - sarima_forecast_series) / actual)) * 100
+
+print(f"ARIMA MAE: {arima_mae}, MSE: {arima_mse}, RMSE: {arima_rmse}, MAPE: {arima_mape}")
+print(f"SARIMA MAE: {sarima_mae}, MSE: {sarima_mse}, RMSE: {sarima_rmse}, MAPE: {sarima_mape}")
+
+# Step 7: Plotting the Forecast
+plt.figure(figsize=(15, 8))
+plt.plot(time_series, label='Original Time Series', color='blue')
+plt.plot(arima_forecast_series.index, arima_forecast_series, label='ARIMA Forecast', color='orange')
+plt.plot(sarima_forecast_series.index, sarima_forecast_series, label='SARIMA Forecast', color='green')
+plt.fill_between(arima_forecast_series.index, arima_forecast_ci.iloc[:, 0], arima_forecast_ci.iloc[:, 1], color='orange', alpha=0.3)
+plt.fill_between(sarima_forecast_series.index, sarima_forecast_ci.iloc[:, 0], sarima_forecast_ci.iloc[:, 1], color='green', alpha=0.3)
+plt.title('Time Series Forecasting')
+plt.xlabel('Date')
+plt.ylabel('Sales')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig('./visuals/practical_implementation_forecasting.png')
+plt.show()
+
 ```
 
 ![](https://miro.medium.com/v2/resize:fit:816/1*-fAronib7AkQOl-uu6jzrg.png)
@@ -363,6 +759,3 @@ In this final section, we’ll discuss some best practices to follow when perfor
 5.  **Data Leakage**: Ensure that future data does not influence the model training. This can lead to over-optimistic performance estimates. Properly split your data into training and test sets.
 6.  **Static Models for Dynamic Data**: Static models can become obsolete as new data becomes available. Regularly update your models to adapt to new trends and patterns.
 
-> By following these best practices and avoiding common pitfalls, you can improve the accuracy and reliability of your time series forecasts. Remember, the key to successful time series analysis is a thorough understanding of your data and a disciplined approach to model building and evaluation.
-
-#DataScience #TimeSeriesAnalysis #Python #Forecasting #DataAnalytics #MachineLearning
