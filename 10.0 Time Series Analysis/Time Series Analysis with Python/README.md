@@ -1,14 +1,5 @@
 **Time Series Analysis and Forecasting with Practical Python Examples**
 
-![](https://miro.medium.com/v2/resize:fit:816/1*KXFPyusCXxfqNxhSi1MFwQ.png)
-
-Time Series Data Analysis Image generated with DALL-E
-
-Welcome to this comprehensive guide on time series data analytics and forecasting using Python. Whether you are a seasoned data analyst or a business analyst looking to dive deeper into time series analysis, this guide is tailored for you. We will walk you through the essentials of time series data, from understanding its fundamental components to applying sophisticated forecasting techniques.
-
-![](https://miro.medium.com/v2/resize:fit:816/1*Om3uIUB6GrU93BLvjONLkQ.png)
-
-Generative AI generated Image
 
 **In this guide, you’ll learn:**
 
