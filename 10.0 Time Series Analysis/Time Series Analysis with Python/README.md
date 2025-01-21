@@ -1,7 +1,6 @@
-**Time Series Analysis and Forecasting with Practical Python Examples**
+## Time Series Analysis and Forecasting with Practical Python Examples
 
-
-**In this guide, you’ll learn:**
+**In this session, you’ll learn:**
 
 -   What time series data is and its unique characteristics.
 -   How to preprocess and clean your data for accurate analysis.
