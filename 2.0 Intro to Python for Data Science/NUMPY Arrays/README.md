@@ -15,8 +15,12 @@ print(f"1D Array: {arr_1d}")
 arr_2d = np.array([[1, 2, 3], [4, 5, 6]])
 print(f"2D Array:\n{arr_2d}")
 
-# Creating a 3D array (Tensor)
-arr_3d = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
+# Creating a proper 3D array (3x3x3 Tensor)
+arr_3d = np.array([
+    [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+    [[10, 11, 12], [13, 14, 15], [16, 17, 18]],
+    [[19, 20, 21], [22, 23, 24], [25, 26, 27]]
+])
 print(f"3D Array:\n{arr_3d}")
 ```
 
@@ -85,10 +89,66 @@ reversed_array = arr_1d[::-1]
 print(f"Reversed Array: {reversed_array}")
 ```
 
+## 8. Joining and Splitting Arrays
+### Join arrays along an existing axis
+```python
+# Creating two-dimensional arrays
+array1 = np.array([[1, 2], [3, 4]])
+array2 = np.array([[5, 6]])
+
+# Concatenating along axis 0 (rows)
+concatenated_rows = np.concatenate((array1, array2), axis=0)
+print("Concatenated along rows:\n", concatenated_rows)
+
+# Concatenating along axis 1 (columns)
+concatenated_columns = np.concatenate((array1, array2.T), axis=1)
+print("\nConcatenated along columns:\n", concatenated_columns)
+```
+
+### Splitting an array into multiple subarrays
+```python
+# Creating an array
+original_array = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+# Splitting the array into three subarrays
+subarrays = np.split(original_array, [3, 7])
+
+# Displaying the result
+for i, subarray in enumerate(subarrays):
+    print(f"Subarray {i + 1}: {subarray}")
+```
+
+## 9. Mathematical Operations
+### Element-wise operations, Aggregate Functions, and Array Statistics
+```python
+# Element-wise operations
+import numpy as np
+
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+addition = np.add(a, b)
+multiplication = np.multiply(a, b)
+
+# Aggregate functions
+sum_a = np.sum(a)
+
+# Array statistics
+mean_b = np.mean(b)
+min_a = np.min(a)
+max_b = np.max(b)
+
+print("Element-wise Addition:", addition)
+print("Element-wise Multiplication:", multiplication)
+print("Sum of Array 'a':", sum_a)
+print("Mean of Array 'b':", mean_b)
+print("Minimum of Array 'a':", min_a)
+print("Maximum of Array 'b':", max_b)
+```
+
 ## Class Exercises
 - **Task 1:** Create a 1D array of 10 elements using `arange()`.
 - **Task 2:** Convert a 1D array into a 2D array.
 - **Task 3:** Slice and extract the first three elements from a 2D array.
 - **Task 4:** Compute the mean, median, and standard deviation of an array.
-
-This structured lesson will help you understand arrays in Python with practical, class-related examples.
+- **Task 5:** Concatenate two 2D arrays along both axes.
+- **Task 6:** Split an array into multiple parts.
