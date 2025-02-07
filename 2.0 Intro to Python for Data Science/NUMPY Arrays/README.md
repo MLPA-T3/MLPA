@@ -152,3 +152,102 @@ print("Maximum of Array 'b':", max_b)
 - **Task 4:** Compute the mean, median, and standard deviation of an array.
 - **Task 5:** Concatenate two 2D arrays along both axes.
 - **Task 6:** Split an array into multiple parts.
+
+
+
+
+# Solutions for Class Exercises
+
+## **Task 1: Create a 1D array of 10 elements using `arange()`**
+```python
+import numpy as np
+
+# Creating a 1D array with elements from 1 to 10
+arr_1d = np.arange(1, 11)
+print("1D Array:", arr_1d)
+```
+### **Explanation:**
+- The `np.arange(1, 11)` function generates numbers from **1 to 10** (excluding 11).
+- The result is a **1D array** with 10 elements.
+
+---
+
+## **Task 2: Convert a 1D array into a 2D array**
+```python
+# Reshaping the 1D array into a 2D array (2 rows, 5 columns)
+arr_2d = arr_1d.reshape(2, 5)
+print("2D Array:\n", arr_2d)
+```
+### **Explanation:**
+- The `.reshape(2, 5)` method converts the 1D array into a **2D matrix** with **2 rows and 5 columns**.
+
+---
+
+## **Task 3: Slice and extract the first three elements from a 2D array**
+```python
+# Extracting the first three elements from the first row
+sliced_array = arr_2d[0, :3]
+print("Sliced Elements:", sliced_array)
+```
+### **Explanation:**
+- `arr_2d[0, :3]` selects the **first row** (`0`) and the first **three elements**.
+
+---
+
+## **Task 4: Compute the mean, median, and standard deviation of an array**
+```python
+# Compute mean, median, and standard deviation
+mean_value = np.mean(arr_1d)
+median_value = np.median(arr_1d)
+std_dev = np.std(arr_1d)
+
+print("Mean:", mean_value)
+print("Median:", median_value)
+print("Standard Deviation:", std_dev)
+```
+### **Explanation:**
+- `np.mean(arr_1d)`: Calculates the **average** of all elements.
+- `np.median(arr_1d)`: Finds the **middle value**.
+- `np.std(arr_1d)`: Computes the **spread of values** around the mean.
+
+---
+
+## **Task 5: Concatenate two 2D arrays along both axes**
+```python
+# Creating two 2D arrays
+array1 = np.array([[1, 2], [3, 4]])
+array2 = np.array([[5, 6], [7, 8]])
+
+# Concatenating along axis 0 (rows)
+concat_rows = np.concatenate((array1, array2), axis=0)
+print("Concatenated along rows:\n", concat_rows)
+
+# Concatenating along axis 1 (columns)
+concat_columns = np.concatenate((array1, array2), axis=1)
+print("Concatenated along columns:\n", concat_columns)
+```
+### **Explanation:**
+- `axis=0`: Joins the arrays **vertically** (row-wise).
+- `axis=1`: Joins the arrays **horizontally** (column-wise).
+
+---
+
+## **Task 6: Split an array into multiple parts**
+```python
+# Creating an array with 10 elements
+original_array = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+# Splitting the array into three subarrays
+subarrays = np.split(original_array, [3, 7])
+
+# Displaying the result
+for i, subarray in enumerate(subarrays):
+    print(f"Subarray {i + 1}: {subarray}")
+```
+### **Explanation:**
+- `np.split(original_array, [3, 7])` splits at indices `3` and `7`.
+  - **Subarray 1:** First **3 elements** (`[1, 2, 3]`).
+  - **Subarray 2:** Next **4 elements** (`[4, 5, 6, 7]`).
+  - **Subarray 3:** Remaining **elements** (`[8, 9, 10]`).
+
+---
