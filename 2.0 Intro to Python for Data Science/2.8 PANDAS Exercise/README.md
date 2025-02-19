@@ -134,6 +134,28 @@ df.pivot_table(index='Pclass', columns='Survived', values='Fare', aggfunc='mean'
 ## Step 6: Data Visualization
 We can visualize the data using Matplotlib and Seaborn.
 ```python
+
+import matplotlib.pyplot as plt
+
+# Plot survival count by class (bar chart)
+df.groupby(['Pclass', 'Survived']).size().unstack().plot(kind='bar', stacked=False)
+plt.xlabel('Passenger Class')
+plt.ylabel('Count')
+plt.title('Survival Count by Class')
+plt.legend(['Not Survived', 'Survived'])
+plt.show()
+
+# Plot distribution of Age (histogram)
+plt.hist(df['Age'].dropna(), bins=20, color='blue', edgecolor='black', alpha=0.7)
+plt.xlabel('Age')
+plt.ylabel('Frequency')
+plt.title('Distribution of Age')
+plt.show()
+
+
+```
+### Advanced Visualization
+```python
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -144,9 +166,7 @@ plt.show()
 # Plot distribution of Age
 sns.histplot(df['Age'], bins=20, kde=True)
 plt.show()
-```
-### Advanced Visualization
-```python
+
 # Boxplot for Fare by Class and Survival status
 sns.boxplot(x='Pclass', y='Fare', hue='Survived', data=df)
 plt.show()
