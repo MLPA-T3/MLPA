@@ -300,4 +300,100 @@ plt.show()
 
 ---
 
-*End of document up to section 3.8.*
+# I. Example Datasets to Learn
+
+Classical time series forecasting methods provide a solid foundation for beginners in data analytics. By exploring these methods in both R and Python, we can develop a deeper understanding of time series analysis and forecasting. Experiment with different datasets and parameters to enhance your skills and proficiency in time series forecasting.
+
+---
+
+## I1. Airline Passengers Dataset
+
+- **Description:** Monthly totals of international airline passengers (in thousands) from 1949 to 1960.  
+- **Use Case:** Useful for learning various time series forecasting methods, including Naive, Moving Average, Exponential Smoothing, Holt-Winters, ARIMA, and SARIMA.  
+- **Where to Find:**  
+  - In R, available in the datasets package as `AirPassengers`.  
+  - Also found in various online repositories.
+
+---
+
+## I2. Monthly Milk Production Dataset
+
+- **Description:** Monthly milk production (in pounds per cow) from 1962 to 1975.  
+- **Use Case:** Suitable for exploring seasonal patterns and trends using Holt-Winters and SARIMA models.  
+- **Where to Find:**  
+  - In R, available in the datasets package as `milk`.  
+  - Also found in various online repositories.
+
+---
+
+## I3. CO2 Concentration Dataset
+
+- **Description:** Monthly atmospheric CO2 concentrations at the Mauna Loa Observatory from 1958 to 2020.  
+- **Use Case:** Ideal for studying long-term trends and seasonal patterns using methods like Holt-Winters and SARIMA.  
+- **Where to Find:**  
+  - In R, available in the datasets package as `co2`.  
+  - Also found in various online repositories.
+
+---
+
+## I4. Daily Minimum Temperatures Dataset
+
+- **Description:** Daily minimum temperatures in Melbourne, Australia, from 1981 to 1990.  
+- **Use Case:** Suitable for exploring daily patterns and trends using ARIMA and SARIMA models.  
+- **Where to Find:**  
+  - Found in various online repositories.
+
+---
+
+## I5. Sunspot Numbers Dataset
+
+- **Description:** Monthly mean relative sunspot numbers from 1749 to 1983.  
+- **Use Case:** Useful for long-term trend analysis and forecasting using ARIMA and Holt-Winters models.  
+- **Where to Find:**  
+  - In R, available in the datasets package as `sunspot.month`.  
+  - Also found in various online repositories.
+
+---
+
+## I6. Electricity Consumption Dataset
+
+- **Description:** Hourly electricity consumption data for a household.  
+- **Use Case:** Useful for short-term load forecasting using Moving Average and ARIMA models.  
+- **Where to Find:**  
+  - Found in various online repositories.
+
+---
+
+## I7. Retail Sales Dataset
+
+- **Description:** Monthly retail sales data for various sectors.  
+- **Use Case:** Suitable for exploring seasonal patterns and trends using Holt-Winters and SARIMA models.  
+- **Where to Find:**  
+  - Found in various online repositories.
+
+---
+
+## I8. International Tourism Dataset
+
+- **Description:** Monthly number of international visitors to Australia from 1980 to 1995.  
+- **Use Case:** Ideal for studying seasonal effects and trends using Holt-Winters and SARIMA models.  
+- **Where to Find:**  
+  - In R, available in the `fpp2` package as `austourists`.
+
+---
+
+## I9. Financial Time Series Dataset
+
+- **Description:** Daily closing prices of a stock or index.  
+- **Use Case:** Useful for financial forecasting using ARIMA and Moving Average models.  
+- **Where to Find:**  
+  - Found in various online repositories, including Yahoo Finance.
+
+---
+
+## I10. Sales of Shampoo Over Three Years Dataset
+
+- **Description:** Monthly sales of shampoo from January 2001 to December 2003.  
+- **Use Case:** Suitable for learning trend analysis and forecasting using Simple Exponential Smoothing and Holt-Winters models.  
+- **Where to Find:**  
+  - Found in various online repositories.
