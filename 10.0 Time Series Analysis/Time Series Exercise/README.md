@@ -56,6 +56,24 @@ plt.show()
 data['Trend'] = np.arange(len(data))
 ```
 
+```python
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+
+# Decompose the time series
+# model='additive' assumes that the data is the sum of trend, seasonality, and residual
+# period=12 indicates monthly seasonality for one year
+result = seasonal_decompose(data['Passengers'], model='additive', period=12)
+
+# 3. Plot the decomposition
+fig = result.plot()
+fig.set_size_inches(12, 8)
+plt.show()
+
+```
+![image](https://github.com/user-attachments/assets/2835046c-9995-4efd-877a-dbaaa15ca20d)
+
 ---
 
 ## 3. Forecasting Methods
