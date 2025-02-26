@@ -76,6 +76,27 @@ plt.show()
 
 ---
 
+# Test for stationarity
+```python
+
+import numpy as np
+from statsmodels.tsa.stattools import adfuller
+
+# 1. Augmented Dickey-Fuller test on original data
+adf_result = adfuller(data['Passengers'])
+print("ADF Statistic:", adf_result[0])
+print("p-value:", adf_result[1])
+
+# 2. Decide whether to difference based on p-value
+d = 0
+if adf_result[1] >= 0.05:
+    d = 1
+    adf_diff = adfuller(data['Passengers'].diff().dropna())
+    print("\nAfter 1st Difference:")
+    print("ADF Statistic:", adf_diff[0])
+    print("p-value:", adf_diff[1])
+```
+
 ## 3. Forecasting Methods
 
 Each section below explains the method and provides code that forecasts the next 12 months, along with a plot comparing the forecast to the historical data.
