@@ -55,13 +55,13 @@ plt.show()
 # Create an exogenous variable (e.g., a linear trend)
 data['Trend'] = np.arange(len(data))
 ```
+# Decompose the time series
 
 ```python
 
 from statsmodels.tsa.seasonal import seasonal_decompose
 
 
-# Decompose the time series
 # model='additive' assumes that the data is the sum of trend, seasonality, and residual
 # period=12 indicates monthly seasonality for one year
 result = seasonal_decompose(data['Passengers'], model='additive', period=12)
