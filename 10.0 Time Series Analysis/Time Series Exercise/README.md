@@ -175,6 +175,33 @@ plt.show()
 ```
 ![image](https://github.com/user-attachments/assets/6e920272-6bd3-427d-a728-c21964182deb)
 
+# ARIMA Order (p,d,q) using auto.arima
+
+```python
+pip install pmdarima
+
+import pandas as pd
+from pmdarima import arima
+from pmdarima.arima import auto_arima
+
+# Suppose 'data' is a pandas DataFrame with a DateTimeIndex
+# and 'Passengers' is your time series column
+model = auto_arima(
+    data['Passengers'], 
+    start_p=1, start_q=1,
+    max_p=5, max_q=5,   # or higher, depending on your data
+    seasonal=False,     # set to True if you suspect seasonality
+    d=None,             # let auto_arima find the best d
+    trace=True,         # print status
+    error_action='ignore',  
+    suppress_warnings=True, 
+    stepwise=True
+)
+
+print("Chosen ARIMA order:", model.order)
+
+```
+
 ---
 
 ### 3.4 Autoregressive Integrated Moving Average (ARIMA)
