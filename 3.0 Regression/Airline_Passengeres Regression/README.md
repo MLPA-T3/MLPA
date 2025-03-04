@@ -56,5 +56,8 @@ plt.legend()
 plt.show()
 
 ```
+![Capture](https://github.com/user-attachments/assets/1a5bb4dd-5255-498f-8522-5f058e0ab564)
+
+
 ![Figure 2025-03-04 134624](https://github.com/user-attachments/assets/8b43e56d-bdaa-487e-a3bd-be4b5c7e908e)
 
