@@ -199,6 +199,7 @@ plt.show()
 # ARIMA Order (p,d,q) using auto.arima
 
 ```python
+#install library (1 time step)
 pip install pmdarima
 
 import pandas as pd
@@ -209,9 +210,9 @@ from pmdarima.arima import auto_arima
 # and 'Passengers' is your time series column
 model = auto_arima(
     data['Passengers'], 
-    start_p=1, start_q=1,
+    start_p=0, start_q=0,
     max_p=5, max_q=5,   # or higher, depending on your data
-    seasonal=False,     # set to True if you suspect seasonality
+    seasonal=True, m = 12,    # set to True if you suspect seasonality
     d=None,             # let auto_arima find the best d
     trace=True,         # print status
     error_action='ignore',  
@@ -219,8 +220,23 @@ model = auto_arima(
     stepwise=True
 )
 
-print("Chosen ARIMA order:", model.order)
+print("ARIMA order:", model.order)
+print("Seasonal order:", model.seasonal_order)
 
+
+```
+
+or
+
+```python
+import pmdarima as pm
+
+# Fit auto_arima with seasonal parameter enabled (m=12 for monthly data)
+auto_model = pm.auto_arima(data['Passengers'], seasonal=True, m=12)
+
+# Get the non-seasonal and seasonal orders
+print("ARIMA order:", auto_model.order)
+print("Seasonal order:", auto_model.seasonal_order)
 ```
 
 ---
@@ -283,6 +299,52 @@ plt.show()
 
 ---
 
+### ARIMA using Train-Test Split
+
+```python
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+
+# Split data: Use all but the last 12 months for training, and the last 12 months for testing
+train = data.iloc[:-12]
+test = data.iloc[-12:]
+
+# Fit the SARIMA model on the training data
+sarima_model = SARIMAX(train['Passengers'], order=(0, 1, 1), seasonal_order=(1, 1, 2, 12))
+sarima_fit = sarima_model.fit(disp=False)
+
+# Forecast the same number of steps as in the test set
+sarima_forecast = sarima_fit.get_forecast(steps=len(test)).predicted_mean
+
+# Calculate error metrics
+mae = mean_absolute_error(test['Passengers'], sarima_forecast)
+rmse = np.sqrt(mean_squared_error(test['Passengers'], sarima_forecast))
+print("Mean Absolute Error:", mae)
+print("Root Mean Squared Error:", rmse)
+
+# Plot observed vs. forecasted values
+plt.figure(figsize=(10, 6))
+train['Passengers'].plot(label='Train')
+test['Passengers'].plot(label='Test', color='blue')
+sarima_forecast.plot(label='SARIMA Forecast', color='red')
+plt.title("SARIMA Forecast vs Actual")
+plt.xlabel("Year")
+plt.ylabel("Passengers")
+plt.legend()
+plt.show()
+
+
+```
+
+![Figure 2025-03-04 132021](https://github.com/user-attachments/assets/943b47a3-070b-4969-88e7-d044b1053c5a)
+
+
+---
 ### 3.6 SARIMAX (Seasonal ARIMA with Exogenous Regressors)
 
 **Concept:**  
