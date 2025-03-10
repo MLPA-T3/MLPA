@@ -108,6 +108,9 @@ In this example, we **simulate** transactions with numeric and categorical featu
 
 ---
 
+![Capture](https://github.com/user-attachments/assets/b4ca8446-cffb-468e-bc27-45a249650301)
+
+
 ## Feature Engineering
 
     # We'll one-hot encode the 'type' column, dropping the first category to avoid the dummy trap.
@@ -146,6 +149,7 @@ In this example, we **simulate** transactions with numeric and categorical featu
     print(classification_report(y_test, y_pred))
 
 ---
+![Capture](https://github.com/user-attachments/assets/44f9d6de-130c-4448-879e-50f0906662e8)
 
 ## Predict Fraud Probability
 
