@@ -251,6 +251,59 @@ In the shopper's dataset, using the elbow technique to choose #10 components.
 
 Image: Top K Eigenvalues — ( 0 to 10)
 
+## Applications of PCA
+
+PCA finds applications in various domains, including but not limited to:
+
+1.  Image Compression: Reducing the dimensionality of image data while preserving essential information, which is crucial for image storage and transmission.
+2.  Bioinformatics: Analyzing high-dimensional gene expression data to identify patterns and reduce noise.
+3.  Face Recognition: Extracting essential facial features for recognition tasks.
+4.  Recommendation Systems: Reducing the dimensionality of user-item interaction data for efficient recommendation algorithms.
+5.  Finance: Analyzing financial data to identify underlying trends and patterns.
+
+Principal Component Analysis is a versatile and powerful technique for dimensionality reduction and feature extraction. By transforming complex, high-dimensional datasets into a more manageable form, PCA aids in data exploration, visualization, and analysis. Its mathematical underpinnings, coupled with its diverse applications, make PCA an indispensable tool in the toolkit of data scientists and analysts worldwide. Understanding the principles and mathematics behind PCA is essential for harnessing its full potential in real-world data analysis tasks.
+
+## Implementing PCA in Python
+
+Let’s implement PCA using Python and the popular library, scikit-learn. Ensure you have scikit-learn installed in your environment.
+
+```python
+
+import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+data = np.array([[1.0, 2.0, 3.0],
+                 [4.0, 5.0, 6.0],
+                 [7.0, 8.0, 9.0]])
+
+scaler = StandardScaler()
+data_std = scaler.fit_transform(data)
+
+pca = PCA(n_components=2)
+
+pca.fit(data_std)
+
+data_pca = pca.transform(data_std)
+
+components = pca.components_
+
+explained_variance_ratio = pca.explained_variance_ratio_
+
+print("Original Data:")
+print(data)
+print("\nStandardized Data:")
+print(data_std)
+print("\nPrincipal Components:")
+print(components)
+print("\nExplained Variance Ratio:")
+print(explained_variance_ratio)
+print("\nData in Reduced Dimensionality:")
+print(data_pca)
+
+```
+
+
 **Summary**
 
 -   Principal Components Analysis (PCA), is the technique used to do exploratory analysis, image compression, dimensionality reductions
